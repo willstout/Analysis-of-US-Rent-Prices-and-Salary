@@ -1,0 +1,99 @@
+City,State,Tax_Style,Tax Rate
+Akron,OH,Flat,2.5
+Albuquerque,NM,Flat,0
+Allentown,PA,Flat,1.18
+Anaheim,CA,Flat,0
+Atlanta,GA,Flat,0
+Augusta,GA,Flat,0
+Austin,TX,Flat,0
+Bakersfield,CA,Flat,0
+Baltimore,MD,Flat,3.2
+Baton Rouge,LA,Flat,0
+Birmingham,AL,Flat,1
+Boise,ID,Flat,0
+Boston,MA,Flat,0
+Boulder,CO,Flat,0
+Buffalo,NY,Flat,0
+Charleston,SC,Flat,0
+Charlotte,NC,Flat,0
+Chattanooga,TN,Flat,0
+Chicago,IL,Flat,0
+Cincinnati,OH,Flat,2.1
+Cleveland,OH,Flat,2
+Colorado Springs,CO,Flat,0
+Columbia,SC,Flat,0
+Columbus,OH,Flat,2
+Dallas,TX,Flat,0
+Dayton,OH,Flat,1
+Denver,CO,Flat,0
+Des Moines,IA,Flat,0
+Detroit,MI,Flat,2.24
+Durham,NC,Flat,0
+El Paso,TX,Flat,0
+Fort Collins,CO,Flat,0
+Fort Lauderdale,FL,Flat,0
+Fort Worth,TX,Flat,0
+Fresno,CA,Flat,0
+Grand Rapids,MI,Flat,1.5
+Greeley,CO,Flat,0
+Hartford,CT,Flat,0
+Honolulu,HI,Flat,0
+Houston,TX,Flat,0
+Indianapolis,IN,Flat,2
+Irvine,CA,Flat,0
+Jackson,MS,Flat,0
+Jacksonville,FL,Flat,0
+Kansas City,MO,Flat,1
+Knoxville,TN,Flat,0
+Lakeland,FL,Flat,0
+Las Vegas,NV,Flat,0
+Little Rock,AR,Flat,0
+Long Beach,CA,Flat,0
+Los Angeles,CA,Flat,0
+Louisville,KY,Flat,2.2
+Madison,WI,Flat,0
+Memphis,TN,Flat,0
+Miami,FL,Flat,0
+Milwaukee,WI,Flat,0
+Minneapolis,MN,Flat,0
+Nashville,TN,Flat,0
+New Haven,CT,Flat,0
+New Orleans,LA,Flat,0
+New York,NY,Progressive,"0:3.078, 12000:3.762, 25000:3.82, 50000:3.867"
+Oklahoma City,OK,Flat,0
+Omaha,NE,Flat,0
+Orlando,FL,Flat,0
+Philadelphia,PA,Flat,3.88
+Phoenix,AZ,Flat,0
+Pittsburgh,PA,Flat,3
+Portland,OR,Flat,0.68
+Providence,RI,Flat,0
+Provo,UT,Flat,0
+Raleigh,NC,Flat,0
+Richmond,VA,Flat,0
+Riverside,CA,Flat,0
+Rochester,NY,Flat,0
+Sacramento,CA,Flat,0
+Salt Lake City,UT,Flat,0
+San Antonio,TX,Flat,0
+San Diego,CA,Flat,0
+San Francisco,CA,Flat,1.5
+San Jose,CA,Flat,0
+Seattle,WA,Flat,0
+Spokane,WA,Flat,0
+St. Louis,MO,Flat,1
+St. Paul,MN,Flat,0
+Stamford,CT,Flat,0
+Stockton,CA,Flat,0
+Syracuse,NY,Flat,0
+Tampa,FL,Flat,0
+Toledo,OH,Flat,2.25
+Tucson,AZ,Flat,0
+Tulsa,OK,Flat,0
+Ventura,CA,Flat,0
+Virginia Beach,VA,Flat,0
+Washington,DC,Flat,0
+West Palm Beach,FL,Flat,0
+Wichita,KS,Flat,0
+Winston-Salem,NC,Flat,0
+Worcester,MA,Flat,0
