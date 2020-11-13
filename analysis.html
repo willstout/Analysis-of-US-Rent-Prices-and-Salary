@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Viz final project </title>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script src="main.js" async></script>
+    <script src="map.js" async></script>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .states {
+          fill: none;
+          stroke: #fff;
+          stroke-linejoin: round;
+        }
+    </style>
+</head>
+<body>
+    <div style="width:100%; height:100%;">
+        <div style="padding-top:10px; height:100px;">
+            <div style="width:100%;" class="header">
+                <header style="width: 100%; float: left;"> 
+                        <h1>Final proj</h1>
+                </header>
+            </div>
+        </div>
+        <div style="width:20%; height:900px; float:left;" id='bubbleChart'>
+            <svg style="width:100%; float:left;">
+
+            </svg>
+        </div>
+        <div style="margin-left: 20%; width:80%; height:900px;" id='map'>
+            <svg style="width:100%; height:900px; padding-left:20%; padding-top:60px" id='mapsvg'>
+
+            </svg>
+        </div>
+    </div>
+
+</body>
+

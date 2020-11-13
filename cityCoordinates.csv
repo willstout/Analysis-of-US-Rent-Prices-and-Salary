@@ -1,36 +1,36 @@
 City,State,Latitude,Longitude
-Akron,OH,41.0798,-81.5219
-Albuquerque,NM,35.1053,-106.6464
-Allentown,PA,40.5961,-75.4756
-Anaheim,CA,33.839,-117.8572
-Atlanta,GA,33.7627,-84.4224
-Augusta,GA,33.3645,-82.0708
-Austin,TX,30.3004,-97.7522
-Bakersfield,CA,35.3529,-119.0359
-Baltimore,MD,39.3051,-76.6144
-Baton Rouge,LA,30.4418,-91.131
-Birmingham,AL,33.5277,-86.7987
-Boise,ID,43.6007,-116.2312
-Boston,MA,42.3188,-71.0846
-Boulder,CO,40.0249,-105.2523
-Buffalo,NY,42.9016,-78.8487
-Charleston,SC,32.8153,-79.9628
-Charlotte,NC,35.208,-80.8304
-Chattanooga,TN,35.0657,-85.2488
-Chicago,IL,41.8373,-87.6862
-Cincinnati,OH,39.1413,-84.5061
-Cleveland,OH,41.4767,-81.6804
-Colorado Springs,CO,38.8674,-104.7606
-Columbia,SC,34.0376,-80.9037
-Columbus,OH,39.9862,-82.985
-Dallas,TX,32.7936,-96.7662
-Dayton,OH,39.7797,-84.1998
-Denver,CO,39.7621,-104.8759
-Des Moines,IA,41.5725,-93.6105
-Detroit,MI,42.3834,-83.1024
-Durham,NC,35.9794,-78.9031
-El Paso,TX,31.8479,-106.4309
-Fort Collins,CO,40.5478,-105.0656
+Akron,OH,-79.1,38.76
+Albuquerque,NM,-108,31.3
+Allentown,PA,-72.3,37.76
+Anaheim,CA,-121,30
+Atlanta,GA,-82.7,30
+Augusta,GA,-79.7,29.2
+Austin,TX,-98,25.4
+Bakersfield,CA,-122.6,31.6
+Baltimore,MD,-73.3,36.7
+Baton Rouge,LA,-89.6,25.7
+Birmingham,AL,-85.4,29.8
+Boise,ID,-119.5,41.9
+Boston,MA,-66.7,40
+Boulder,CO,-106.6,37.7
+Buffalo,NY,-76,41
+Charleston,SC,-78,28.5
+Charlotte,NC,-78.5,31.5
+Chattanooga,TN,-83.4,31.6
+Chicago,IL,-86.1,39.8
+Cincinnati,OH,-82.6,36.4
+Cleveland,OH,-79.3,39.3
+Colorado Springs,CO,-106.5,35.9
+Columbia,SC,-78.5,30.3
+Columbus,OH,-80.5,37.8
+Dallas,TX,-97,28.9
+Dayton,OH,-82,37.4
+Denver,CO,-106.5,37
+Des Moines,IA,-93,39.5
+Detroit,MI,-81,40
+Durham,NC,-76,32.7
+El Paso,TX,-108,27.8
+Fort Collins,CO,-106.4,38.2
 Fort Lauderdale,FL,26.1412,-80.1464
 Fort Worth,TX,32.7811,-97.3473
 Fresno,CA,36.7831,-119.7941
