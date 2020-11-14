@@ -4,8 +4,9 @@ class Map {
      * @param updateTable a callback function used to notify other parts of the program when a set of bubbles is selected
      * 
      */
-    constructor(data, updateMap) {
-        this.updateMap = updateMap;
+    constructor(data, updateJobType, updateCity) {
+        this.updateJobType = updateJobType;
+        this.updateCity = updateCity;
         this.data = data
     }
 

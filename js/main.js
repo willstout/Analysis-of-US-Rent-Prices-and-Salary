@@ -2,21 +2,55 @@ loadData().then(data => {
 
     
     // Creates the view objects
-    const map = new Map(data, updateMap);
-
+    const map = new Map(data, updateJobType, updateCity);
+    const bubblechart = new BubbleChart(data, updateJobType, updateCity);
+    const buttons = new Buttons(data, updateJobType);
 
     //Setup bubbleChart space
     map.setupMap();
+    bubblechart.updatePlot('Accountant');
+    
 
 
     /**
-     * Callback for table
      *
-     * @param category - String that represents the the talking point ("Economy/fiscal issues", "Energy/Environment", etc)
-     * @param x and y - The x and y values of things that are highlighted. Will then be sent to table update method
+     * @param jobType - String that represents the selected job type
      */
-    function updateMap(data) { 
+    function updateJobType(jobType) { 
         //map.drawTable(data)
+        bubblechart.updatePlot(jobType);
+    }
+
+    /**
+     *
+     * @param city - String that represents the selected city
+     */
+    function updateCity(city) {
+
+    }
+
+    /**
+     *
+     * @param isOn - Boolean that reperensents whether rent is toggled or not
+     */
+    function toggleRent(isOn) {
+
+    }
+
+    /**
+     *
+     * @param isOn - Boolean that reperensents whether tax is toggled or not
+     */
+    function toggleTax(isOn) {
+
+    }
+
+    /**
+     *
+     * @param isOn - Boolean that reperensents whether the top picks are highlighted or not
+     */
+    function highlightBest(isOn) {
+
     }
 
 });
@@ -59,6 +93,6 @@ async function loadData() {
         'salaryPerJobPerCity': salaryPerJobPerCity,
         'stateIncomeTaxRates': stateIncomeTaxRates,
         'zipCodePerCity': zipCodePerCity,
-        'averageRentPerCity': averageRentPerCity
+        'averageRentPerCity': averageRentPerCity,
     };
 }
