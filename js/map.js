@@ -23,7 +23,7 @@ class Map {
         var path = d3.geoPath();
 
         var promises = [
-            d3.json("states.json"),
+            d3.json("../data/states.json"),
         ]
         Promise.all(promises).then(ready)
 

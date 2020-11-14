@@ -44,12 +44,13 @@ async function loadFile(file) {
 }
 
 async function loadData() {
-    let averageRentPerZipCode = await loadFile('averageRentPerZipCode.csv');
-    let cityCoordinates = await loadFile('cityCoordinates.csv');
-    let localIncomeTaxRates = await loadFile('localIncomeTaxRates.csv');
-    let salaryPerJobPerCity = await loadFile('salaryPerJobPerCity.csv');
-    let stateIncomeTaxRates = await loadFile('stateIncomeTaxRates.csv');
-    let zipCodePerCity = await loadFile('zipCodePerCity.csv');
+    let averageRentPerZipCode = await loadFile('../data/averageRentPerZipCode.csv');
+    let cityCoordinates = await loadFile('../data/cityCoordinates.csv');
+    let localIncomeTaxRates = await loadFile('../data/localIncomeTaxRates.csv');
+    let salaryPerJobPerCity = await loadFile('../data/salaryPerJobPerCity.csv');
+    let stateIncomeTaxRates = await loadFile('../data/stateIncomeTaxRates.csv');
+    let zipCodePerCity = await loadFile('../data/zipCodePerCity.csv');
+    let averageRentPerCity = await loadFile('../data/averageRentPerCity.csv');
 
     return {
         'averageRentPerZipCode': averageRentPerZipCode,
@@ -57,6 +58,7 @@ async function loadData() {
         'localIncomeTaxRates': localIncomeTaxRates,
         'salaryPerJobPerCity': salaryPerJobPerCity,
         'stateIncomeTaxRates': stateIncomeTaxRates,
-        'zipCodePerCity': zipCodePerCity
+        'zipCodePerCity': zipCodePerCity,
+        'averageRentPerCity': averageRentPerCity
     };
 }
