@@ -1,0 +1,40 @@
+* {
+    font-family: 'Work Sans', sans-serif;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 400px 1200px;
+    grid-template-rows: 150px 50px 1200px;
+    grid-template-areas: 
+        "header header"
+        "bubblechart buttons"
+        "bubblechart map";
+}
+
+.header {
+    grid-area: header;
+    text-align: center;
+    align-self: center;
+}
+
+#bubbleChart {
+    grid-area: bubblechart;
+    margin-left: 60px;
+}
+
+#buttonPanel {
+    grid-area: buttons;
+}
+
+#map {
+    grid-area: map;
+    margin-left: 60px;
+    margin-top:60px;
+}
+
+.states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}

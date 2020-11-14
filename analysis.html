@@ -12,33 +12,26 @@
     <script src="js/main.js" async></script>
     <script src="js/map.js" async></script>
     <link rel="stylesheet" href="style.css" />
-    <style>
-        .states {
-          fill: none;
-          stroke: #fff;
-          stroke-linejoin: round;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <div style="width:100%; height:100%;">
-        <div style="padding-top:10px; height:100px;">
-            <div style="width:100%;" class="header">
-                <header style="width: 100%; float: left;"> 
-                        <h1>Final proj</h1>
-                </header>
-            </div>
-        </div>
-        <div style="width:20%; height:900px; float:left;" id='bubbleChart'>
-            <svg style="width:100%; float:left;">
+    <div class="header">
+        <header style="width: 100%; float: left;"> 
+                <h1>Analysis of US Rent Prices and Salary</h1>
+                <div>Will Stout, Xuyang Li</div>
+        </header>
+    </div>
+    <div id='bubbleChart'>
+        <svg></svg>
+    </div>
+    <div id='buttonPanel'>
+        <svg></svg>
+    </div>
+    <div id='map'>
+        <svg id='mapsvg'>
 
-            </svg>
-        </div>
-        <div style="margin-left: 20%; width:80%; height:900px;" id='map'>
-            <svg style="width:100%; height:900px; padding-left:20%; padding-top:60px" id='mapsvg'>
-
-            </svg>
-        </div>
+        </svg>
     </div>
 
 </body>
