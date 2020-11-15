@@ -26,7 +26,7 @@ loadData().then(data => {
      * @param city - String that represents the selected city
      */
     function updateCity(city) {
-
+        bubblechart.updateCity(city);
     }
 
     /**
@@ -34,6 +34,7 @@ loadData().then(data => {
      * @param isOn - Boolean that reperensents whether rent is toggled or not
      */
     function toggleRent(isOn) {
+        bubblechart.toggleRent(isOn);
 
     }
 
@@ -42,7 +43,7 @@ loadData().then(data => {
      * @param isOn - Boolean that reperensents whether tax is toggled or not
      */
     function toggleTax(isOn) {
-
+        bubblechart.toggleTax(isOn);
     }
 
     /**
@@ -50,6 +51,7 @@ loadData().then(data => {
      * @param isOn - Boolean that reperensents whether the top picks are highlighted or not
      */
     function highlightBest(isOn) {
+        bubblechart.highlightBest(isOn);
 
     }
 

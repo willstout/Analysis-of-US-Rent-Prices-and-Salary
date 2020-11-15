@@ -24,12 +24,40 @@ class BubbleChart {
     }
 
     updatePlot(jobType) {
-        this.drawAxis;
+        let svgGroup = d3.select('#bubbleChart').select('svg')
+                            .append('g')
+                            .attr('id', 'plotGroup')
+                            .attr('width', '100%')
+                            .attr('height', '100%')
+                            .attr('transform', 'translate(90, 0)');
+
+        svgGroup.append('g').attr('id', 'axis');
+
+        this.salrayData = this.data.salaryPerJobPerCity;
+        let sMax = d3.max(this.salrayData, d=>+d[jobType]);
+        let sMin = d3.min(this.salrayData, d=>+d[jobType]>0 ? +d[jobType] : Infinity);
+        let axisScale = d3
+                        .scaleLinear()
+                        .domain([sMin, sMax])
+                        .range([40, 710]);
+        d3.select("#axis").call(d3.axisLeft(axisScale));
+
 
     }
 
-    drawAxis() {
+    updateCity(city) {
 
     }
 
+    toggleRent(isOn) {
+
+    }
+
+    toggleTax(isOn) {
+
+    }
+
+    highlightBest(isOn) {
+
+    }
 }

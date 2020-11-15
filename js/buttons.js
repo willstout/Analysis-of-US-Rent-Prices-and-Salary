@@ -56,8 +56,10 @@ class Buttons {
                     .on('click', function(){
                         if (d3.select('#rent-button').classed('clicked')) {
                             d3.select('#rent-button').classed('clicked', false);
+                            that.toggleRent(false);
                         } else {
                             d3.select('#rent-button').classed('clicked', true);
+                            that.toggleRent(true);
                         }
                     });
         
@@ -69,8 +71,10 @@ class Buttons {
                     .on('click', function(){
                         if (d3.select('#tax-button').classed('clicked')) {
                             d3.select('#tax-button').classed('clicked', false);
+                            that.toggleTax(false);
                         } else {
                             d3.select('#tax-button').classed('clicked', true);
+                            that.toggleTax(true);
                         }
                     });
 
@@ -82,8 +86,10 @@ class Buttons {
                     .on('click', function(){
                         if (d3.select('#highlight-button').classed('clicked')) {
                             d3.select('#highlight-button').classed('clicked', false);
+                            that.highlightBest(false);
                         } else {
                             d3.select('#highlight-button').classed('clicked', true);
+                            that.highlightBest(true);
                         }
                     });
                     
