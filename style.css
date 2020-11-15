@@ -89,7 +89,8 @@ select:focus {outline:0;}
 #axis {
     font-size: 15px;
     font-weight: 500;
-    color: #008CBA;
+    color: purple;
+    z-index: 5;
 }
 
 #axis path{
@@ -101,3 +102,8 @@ select:focus {outline:0;}
     stroke: white;
     stroke-width: 3px;
   }
+
+.bubble {
+    fill: purple;
+    opacity: 0.3;
+}
