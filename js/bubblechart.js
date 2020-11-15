@@ -40,9 +40,15 @@ class BubbleChart {
                         .scaleLinear()
                         .domain([sMax, sMin])
                         .range([40, 710]);
-        let ticks = axisScale.ticks();
-        ticks.push(sMax);
-        ticks.push(sMin);
+        // let ticks = axisScale.ticks();
+        // ticks.push(sMax);
+        // ticks.push(sMin);
+        let ticks = [sMax, sMin];
+        let tickValue = sMax - sMax%10000;
+        while (tickValue > sMin) {
+            ticks.push(tickValue);
+            tickValue -= 10000;
+        }     
         d3.select("#axis").call(d3.axisLeft(axisScale)
                                     .tickPadding(20)
                                     .tickFormat(d3.format(".2s"))
