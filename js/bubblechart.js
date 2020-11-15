@@ -19,7 +19,7 @@ class BubbleChart {
             .attr('height', 750)
             .attr('rx', 40)
             .attr('ry', 40)
-            .attr('transform', 'translate(50, 0)');
+            .attr('transform', 'translate(70, 0)');
         
     }
 
@@ -29,7 +29,7 @@ class BubbleChart {
                             .attr('id', 'plotGroup')
                             .attr('width', '100%')
                             .attr('height', '100%')
-                            .attr('transform', 'translate(90, 0)');
+                            .attr('transform', 'translate(110, 0)');
 
         svgGroup.append('g').attr('id', 'axis');
 
@@ -38,9 +38,19 @@ class BubbleChart {
         let sMin = d3.min(this.salrayData, d=>+d[jobType]>0 ? +d[jobType] : Infinity);
         let axisScale = d3
                         .scaleLinear()
-                        .domain([sMin, sMax])
+                        .domain([sMax, sMin])
                         .range([40, 710]);
-        d3.select("#axis").call(d3.axisLeft(axisScale));
+        let ticks = axisScale.ticks();
+        ticks.push(sMax);
+        ticks.push(sMin);
+        d3.select("#axis").call(d3.axisLeft(axisScale)
+                                    .tickPadding(20)
+                                    .tickFormat(d3.format(".2s"))
+                                    .tickSize(80)
+                                    .tickValues(ticks)
+                                    .ticks(5))
+                        .attr('transform', 'translate(40, 0)');
+        
 
 
     }

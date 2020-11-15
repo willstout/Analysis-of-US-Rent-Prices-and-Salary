@@ -54,7 +54,7 @@ select:focus {outline:0;}
 
 .background {
     fill: gray;
-    opacity: 0.3;
+    opacity: 0.2;
 }
 
 .buttons {
@@ -85,3 +85,19 @@ select:focus {outline:0;}
     color: white;
     background-color: #008CBA;
 }
+
+#axis {
+    font-size: 15px;
+    font-weight: 500;
+    color: #008CBA;
+}
+
+#axis path{
+    fill: none;
+    stroke: none;
+}
+
+#axis line{
+    stroke: white;
+    stroke-width: 3px;
+  }
