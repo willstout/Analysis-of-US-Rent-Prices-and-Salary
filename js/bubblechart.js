@@ -3,7 +3,7 @@ class BubbleChart {
         this.updateJobType = updateJobType;
         this.updateCity = updateCity;
         this.data = data
-        console.log(data);
+        //console.log(data);
         this.drawBackground();
     }
 
