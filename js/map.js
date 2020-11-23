@@ -38,14 +38,13 @@ class Map {
         this.updateJobType = updateJobType;
         this.updateCity = updateCity;
         this.cityArray = [];
-        this.data = data
-        
+        this.data = data 
     }
 
     /**
      * Gives table header stuff and lines
      */
-    setupMap() {
+    setupMap(states) {
         var index = 0;
         while (index < this.data.averageRentPerCity.length) {
             var newCity = new City();
@@ -74,13 +73,7 @@ class Map {
             this.cityArray.push(newCity);
             index +=1 ;
         }
-        console.log(this.cityArray);
-
-        
-
-
-
-
+        //console.log(this.cityArray);
 
         var that = this;
         var svg = d3.select("#mapsvg")
@@ -91,43 +84,147 @@ class Map {
         var projection = d3.geoAlbers();         
         var path = d3.geoPath();
 
-        var promises = [
-            d3.json("../data/states.json"),
-        ]
-        Promise.all(promises).then(ready)
+        svg.append("g")
+            .attr("class", "counties")
+            .selectAll("path")
+            .data(states)
+            .enter()
+            .append("path")
+            .attr("fill", function(d) { 
+                return 'lightblue';
+            })
+            .attr("d", path)
+            .attr("transform", "scale(1)")
+            .style("stroke", "black")
+            .style("stroke-width", .8);
 
-            function ready([us]) {
-            
-                svg.append("g")
-                    .attr("class", "counties")
-                    .selectAll("path")
-                    .data(topojson.feature(us, us.objects.states).features)
-                    .enter()
-                    .append("path")
-                    .attr("fill", function(d) { 
-                        return 'lightblue';
-                    })
-                    .attr("d", path)
-                    .attr("transform", "scale(1)")
-                    .style("stroke", "black")
-                    .style("stroke-width", .8);
+        // svg.append("circle")
+        //     .attr("r", 2)
+        //     .attr("transform", function(d, i) {
+        //         return "translate(" + projection([-67.5,39.9]) + ")";
+        //     });
 
-                // svg.append("circle")
-                //     .attr("r", 2)
-                //     .attr("transform", function(d, i) {
-                //         return "translate(" + projection([-106.4,38.2]) + ")";
-                //     });
-                
-                //Final version, but first gotta find all those useable city coordinates
-                svg.selectAll("circle")
-                    .data(that.data.cityCoordinates)
-                    .enter()
-                    .append("circle")
-                    .attr("r",6)
-                    .attr("transform", function(d, i) {
-                        return "translate(" + projection([d.Latitude,d.Longitude]) + ") translate(0,0)";
-                    });
-            }
+        d3.select("#mapsvg")
+            .append('div')
+            .attr("class", "tooltip")
+            .style("opacity", 0);
         
+        //Final version, but first gotta find all those useable city coordinates
+        var circles = svg.selectAll("g")
+            .data(that.data.cityCoordinates)
+            .enter()
+            .append("g")
+            .attr("class", "city")
+            .attr("transform", function(d, i) {
+                return "translate(" + projection([d.Latitude,d.Longitude]) + ")";
+            })
+            .on("mouseover", function(d) {
+                var div = d3.select(".tooltip");		
+                div.transition()		
+                    .duration(500)
+                    .style("opacity", 1);	
+                var dThat = d;	
+                div.html(that.tooltipRender(d))	
+                    .style("left", (d3.event.pageX) + "px")		
+                    .style("top", (d3.event.pageY) + "px");	
+                })					
+            .on("mouseout", function(d) {	
+                var div = d3.select(".tooltip");	
+                div.transition()		
+                    .duration(100)
+                    .style("opacity", 0);	
+            })
+
+
     }
+
+    //Update map
+    updateMap(jobType) {
+        this.salrayData = this.data.salaryPerJobPerCity;
+        let sMax = d3.max(this.salrayData, d=>+d[jobType]);
+        let sMin = d3.min(this.salrayData, d=>+d[jobType]>0 ? +d[jobType] : Infinity);
+        
+        this.scaleRadius = d3
+                        .scaleLinear()
+                        .domain([sMax, sMin])
+                        .range([0.1, 13]);
+        var that = this;
+        var svg = d3.select("#mapsvg")
+        svg.selectAll(".city")
+            .append("circle")
+            .attr("stroke-dasharray", "0 100")
+            .attr("stroke-width", "15")
+            .attr("fill", "none")
+            .attr("r", function(d,i) {
+                if (+that.salrayData[i][jobType] > 0) {
+                    //console.log("not 0");
+                    return that.scaleRadius(+that.salrayData[i][jobType]);
+                }
+                else {
+                    //console.log("0");
+                    return 0;
+                }
+            })
+        svg.selectAll(".city")
+            .append("circle")
+            .attr("stroke-dasharray", "65 100")
+            .attr("stroke-width", "15")
+            .attr("stroke", "blue")
+            .attr("fill", "none")
+            .attr("r", function(d,i) {
+                if (+that.salrayData[i][jobType] > 0) {
+                    //console.log("not 0");
+                    return that.scaleRadius(+that.salrayData[i][jobType]);
+                }
+                else {
+                    //console.log("0");
+                    return 0;
+                }
+            })
+        svg.selectAll(".city")
+            .append("circle")
+            .attr("stroke-dasharray", "25 100")
+            .attr("stroke-width", "15")
+            .attr("stroke", "red")
+            .attr("fill", "none")
+            .attr("r", function(d,i) {
+                if (+that.salrayData[i][jobType] > 0) {
+                    //console.log("not 0");
+                    return that.scaleRadius(+that.salrayData[i][jobType]);
+                }
+                else {
+                    //console.log("0");
+                    return 0;
+                }
+            })
+        svg.selectAll(".city")
+            .append("circle")
+            .attr("stroke-dasharray", "0 100")
+            .attr("stroke-width", "15")
+            .attr("stroke", "black")
+            .attr("fill", "none")
+            .attr("r", function(d,i) {
+                if (+that.salrayData[i][jobType] > 0) {
+                    //console.log("not 0");
+                    return that.scaleRadius(+that.salrayData[i][jobType]);
+                }
+                else {
+                    //console.log("0");
+                    return 0;
+                }
+            })
+
+    }
+
+    /**
+     * Returns html that can be used to render the tooltip.
+     * @param data 
+     * @returns {string}
+     */
+    tooltipRender(data) {
+        var name = data.City;
+        let text = "<p id='boldLabel' style='background-color:green; position: relative'>" + name + "<br></p>";
+        return text;
+    }
+
 }

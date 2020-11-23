@@ -7,8 +7,20 @@ loadData().then(data => {
     const buttons = new Buttons(data, updateJobType);
 
     //Setup bubbleChart space
-    map.setupMap();
-    bubblechart.updatePlot('Accountant');
+    
+   
+    var promises = [
+        d3.json("../data/states.json"),
+    ]
+    Promise.all(promises).then(ready)
+        function ready([us]) {
+                states = topojson.feature(us, us.objects.states).features;
+                map.setupMap(states);
+                map.updateMap('Accountant');
+                bubblechart.updatePlot('Accountant');
+        }
+    
+
     
 
 
@@ -17,7 +29,7 @@ loadData().then(data => {
      * @param jobType - String that represents the selected job type
      */
     function updateJobType(jobType) { 
-        //map.drawTable(data)
+        map.updateMap(jobType);
         bubblechart.updatePlot(jobType);
     }
 

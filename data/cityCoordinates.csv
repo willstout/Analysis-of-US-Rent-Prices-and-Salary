@@ -31,69 +31,69 @@ Detroit,MI,-81,40
 Durham,NC,-76,32.7
 El Paso,TX,-108,27.8
 Fort Collins,CO,-106.4,38.2
-Fort Lauderdale,FL,26.1412,-80.1464
-Fort Worth,TX,32.7811,-97.3473
-Fresno,CA,36.7831,-119.7941
-Grand Rapids,MI,42.962,-85.6562
-Greeley,CO,40.4151,-104.7706
-Hartford,CT,41.7661,-72.6834
-Honolulu,HI,21.3294,-157.846
-Houston,TX,29.7863,-95.3889
-Indianapolis,IN,39.7771,-86.1458
-Irvine,CA,33.6772,-117.7738
-Jackson,MS,32.3163,-90.2124
-Jacksonville,FL,30.3322,-81.6749
-Kansas City,MO,39.1239,-94.5541
-Knoxville,TN,35.9692,-83.9496
-Lakeland,FL,28.0556,-81.9545
-Las Vegas,NV,36.2333,-115.2654
-Little Rock,AR,34.7256,-92.3576
-Long Beach,CA,33.7981,-118.1675
-Los Angeles,CA,34.1139,-118.4068
-Louisville,KY,38.1663,-85.6485
-Madison,WI,43.0826,-89.3931
-Memphis,TN,35.1046,-89.9773
-Miami,FL,25.7839,-80.2102
-Milwaukee,WI,43.0642,-87.9673
-Minneapolis,MN,44.9635,-93.2678
-Nashville,TN,36.1715,-86.7843
-New Haven,CT,41.3112,-72.9246
-New Orleans,LA,30.0687,-89.9288
-New York,NY,40.6943,-73.9249
-Oklahoma City,OK,35.4676,-97.5136
-Omaha,NE,41.2627,-96.0522
-Orlando,FL,28.4772,-81.3369
-Philadelphia,PA,40.0077,-75.1339
-Phoenix,AZ,33.5722,-112.0891
-Pittsburgh,PA,40.4396,-79.9762
-Portland,OR,45.5372,-122.65
-Providence,RI,41.823,-71.4187
-Provo,UT,40.2457,-111.6457
-Raleigh,NC,35.8325,-78.6435
-Richmond,VA,37.5295,-77.4756
-Riverside,CA,33.9381,-117.3948
-Rochester,NY,43.168,-77.6162
-Sacramento,CA,38.5667,-121.4683
-Salt Lake City,UT,40.7777,-111.9306
-San Antonio,TX,29.4658,-98.5253
-San Diego,CA,32.8312,-117.1225
-San Francisco,CA,37.7562,-122.443
-San Jose,CA,37.3019,-121.8486
-Seattle,WA,47.6211,-122.3244
-Spokane,WA,47.6671,-117.433
-St. Louis,MO,38.6358,-90.2451
-St. Paul,MN,44.9477,-93.104
-Stamford,CT,41.1035,-73.5583
-Stockton,CA,37.9765,-121.3109
-Syracuse,NY,43.0409,-76.1438
-Tampa,FL,27.9942,-82.4451
-Toledo,OH,41.6639,-83.5822
-Tucson,AZ,32.1545,-110.8782
-Tulsa,OK,36.1284,-95.9042
-Ventura,CA,34.2805,-119.2945
-Virginia Beach,VA,36.7335,-76.0435
-Washington,DC,38.9047,-77.0163
-West Palm Beach,FL,26.7153,-80.0534
-Wichita,KS,37.6896,-97.3442
-Winston-Salem,NC,36.1029,-80.2611
-Worcester,MA,42.2705,-71.8079
+Fort Lauderdale,FL,-78,20.5
+Fort Worth,TX,-97.5,28.9
+Fresno,CA,-122.6,31.6
+Grand Rapids,MI,-84,41
+Greeley,CO,-105.7,37.8
+Hartford,CT,-68.9,39.1
+Honolulu,HI,-109,22.4
+Houston,TX,-95,25.3
+Indianapolis,IN,-84.6,37
+Irvine,CA,-120.8,29.8
+Jackson,MS,-89.4,28.4
+Jacksonville,FL,-79.6,25.8
+Kansas City,MO,-94,36.5
+Knoxville,TN,-82,32.7
+Lakeland,FL,-79.9,23
+Las Vegas,NV,-117.8,32.8
+Little Rock,AR,-91.8,31.4
+Long Beach,CA,-121.3,29.8
+Los Angeles,CA,-121.3,30.4
+Louisville,KY,-84.2,35.3
+Madison,WI,-88.2,41.2
+Memphis,TN,-89.2,31.8
+Miami,FL,-78.2,20
+Milwaukee,WI,-86.5,41.4
+Minneapolis,MN,-92.5,43.4
+Nashville,TN,-84.8,32.7
+New Haven,CT,-69.1,38.8
+New Orleans,LA,-88.7,25.4
+New York,NY,-70.2,38.1
+Oklahoma City,OK,-97.5,32.1
+Omaha,NE,-95.7,39.0
+Orlando,FL,-79.45,23.35
+Philadelphia,PA,-72,37.2
+Phoenix,AZ,-114.2,29.6
+Pittsburgh,PA,-77.5,38
+Portland,OR,-127,43.5
+Providence,RI,-67.5,39.1
+Provo,UT,-113.9,38
+Raleigh,NC,-76,32.7
+Richmond,VA,-74.4,34.4
+Riverside,CA,-120.5,30.4
+Rochester,NY,-74.6,41.2
+Sacramento,CA,-125.3,35.5
+Salt Lake City,UT,-114.1,38.2
+San Antonio,TX,-98.8,24.9
+San Diego,CA,-120.1,28.5
+San Francisco,CA,-126.3,34.5
+San Jose,CA,-125.6,33.9
+Seattle,WA,-126.8,46.5
+Spokane,WA,-121.1,46.5
+St. Louis,MO,-89.2,36
+St. Paul,MN,-92.2,43.3
+Stamford,CT,-69.6,38.5
+Stockton,CA,-124.8,34.9
+Syracuse,NY,-72.8,41
+Tampa,FL,-80.6,23
+Toledo,OH,-81.3,39.5
+Tucson,AZ,-113.2,28.6
+Tulsa,OK,-95.9,33.2
+Ventura,CA,-122.5,30.3
+Virginia Beach,VA,-73,33.5
+Washington,DC,-73.5,36.5
+West Palm Beach,FL,-77.9,21.3
+Wichita,KS,-97.7,35.2
+Winston-Salem,NC,-77.8,32.5
+Worcester,MA,-67.5,39.9
