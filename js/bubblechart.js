@@ -46,14 +46,14 @@ class BubbleChart {
             .attr('height', 740)
             .attr('rx', 35)
             .attr('ry', 35)
-            .attr('transform', 'translate(105, 25)');
+            .attr('transform', 'translate(105, 10)');
         
         let svgGroup = d3.select('#bubbleChart').select('svg')
             .append('g')
             .attr('id', 'plotGroup')
             .attr('width', '100%')
             .attr('height', '100%')
-            .attr('transform', 'translate(140, 20)');
+            .attr('transform', 'translate(140, 5)');
 
         svgGroup.append('g').attr('id', 'axis');
         svgGroup.append("text").attr("id", "axis-label");
@@ -119,7 +119,7 @@ class BubbleChart {
                             tooltip
                                 .html(that.tooltipRender(d))
                                 .style("left", "250px")
-                                .style("top", `${+d3.select(this).attr("cy")+160}px`);
+                                .style("top", `${+d3.select(this).attr("cy")+145}px`);
                         })
                         .on("mouseleave", function() {
                             tooltip
