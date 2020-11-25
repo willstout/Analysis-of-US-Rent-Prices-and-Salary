@@ -46,6 +46,8 @@ loadData().then(data => {
      * @param isOn - Boolean that reperensents whether rent is toggled or not
      */
     function toggleRent(isOn) {
+        map.toggleRent = isOn;
+        console.log("here")
         bubblechart.toggleRent(isOn);
 
     }
@@ -55,6 +57,7 @@ loadData().then(data => {
      * @param isOn - Boolean that reperensents whether tax is toggled or not
      */
     function toggleTax(isOn) {
+        map.toggleTax = isOn;
         bubblechart.toggleTax(isOn);
     }
 
