@@ -2,8 +2,8 @@ loadData().then(data => {
 
     
     // Creates the view objects
-    const map = new Map(data, updateJobType, updateCity);
-    const bubblechart = new BubbleChart(data, updateJobType, updateCity, toggleRent, toggleTax);
+    const map = new Map(data, updateJobType, highlightBubble);
+    const bubblechart = new BubbleChart(data, updateJobType, highlightPieChart, toggleRent, toggleTax);
     const buttons = new Buttons(data, updateJobType, toggleRent, toggleTax);
 
     //Setup bubbleChart space
@@ -37,8 +37,12 @@ loadData().then(data => {
      *
      * @param city - String that represents the selected city
      */
-    function updateCity(city) {
-        bubblechart.updateCity(city);
+    function highlightPieChart(city) {
+        map.updateCity(city);
+    }
+
+    function highlightBubble(city, isOn) {
+        bubblechart.updateCity(city, isOn);
     }
 
     /**

@@ -1,8 +1,9 @@
 class BubbleChart {
-    constructor(data, updateJobType, updateCity) {
+    constructor(data, updateJobType, highlightPieChart) {
         this.updateJobType = updateJobType;
-        this.updateCity = updateCity;
+        this.highlightPieChart = highlightPieChart;
         this.data = data;
+        console.log(this.data);
 
         this.jobTypes = this.data.salaryPerJobPerCity;
         this.jobTypes = Object.keys(this.jobTypes[0]);
@@ -100,9 +101,10 @@ class BubbleChart {
         d3.select('#bubbleChart')
             .append('div')
             .attr("class", "tooltip")
+            .attr('id', 'bubbletooltip')
             .style("opacity", 0);
         
-        const tooltip = d3.select(".tooltip");
+        const tooltip = d3.select("#bubbletooltip");
         
         d3.select('#bubbleGroup').selectAll('circle')
                         .data(this.cityData)
@@ -120,15 +122,14 @@ class BubbleChart {
                                 .html(that.tooltipRender(d))
                                 .style("left", "250px")
                                 .style("top", `${+d3.select(this).attr("cy")+145}px`);
+                            that.highlightPieChart(d.City);
                         })
                         .on("mouseleave", function() {
                             tooltip
                                 .transition()
                                 .duration(100)
                                 .style("opacity", 0);
-                        })
-                        .on("click", function(d){
-                            //that.updateCity(d.City);
+                            that.highlightPieChart(null);
                         });
         
         d3.select('#axis').raise();
@@ -139,7 +140,31 @@ class BubbleChart {
         return text;
     }
 
-    updateCity(city) {
+    updateCity(city, isOn) {
+        let bubble = d3.select('#bubbleChart')
+                        .selectAll("circle")
+                        .filter(e => e.City === city)
+                        .classed('highlighted', true);
+        bubble.raise();
+        if (isOn) {
+            let d = this.cityData.find(element => element.City == city);
+            
+            let div = d3.select("#bubbletooltip");		
+            div.transition()		
+                .duration(100)
+                .style("opacity", 1);
+            div.html(this.tooltipRender(d))
+                .style("left", "250px")
+                .style("top", `${+bubble.attr('cy')+145}px`);
+
+        }
+        else {
+            let div = d3.select("#bubbletooltip");	
+            div.transition()		
+                .duration(100)
+                .style("opacity", 0);	
+            bubble.classed('highlighted', false);
+        }
 
     }
 

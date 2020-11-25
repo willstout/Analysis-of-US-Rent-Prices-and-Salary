@@ -35,9 +35,9 @@ class Map {
      * @param updateTable a callback function used to notify other parts of the program when a set of bubbles is selected
      * 
      */
-    constructor(data, updateJobType, updateCity) {
+    constructor(data, updateJobType, highlightBubble) {
         this.updateJobType = updateJobType;
-        this.updateCity = updateCity;
+        this.highlightBubble = highlightBubble;
         this.cityArray = [];
         this.data = data 
         this.rentToggle = true;
@@ -106,9 +106,10 @@ class Map {
         //         return "translate(" + projection([-67.5,39.9]) + ")";
         //     });
 
-        d3.select("#mapsvg")
+        d3.select("#map")
             .append('div')
             .attr("class", "tooltip")
+            .attr("id", "maptooltip")
             .style("opacity", 0);
         
         //Final version, but first gotta find all those useable city coordinates
@@ -121,19 +122,21 @@ class Map {
                 return "translate(" + projection([d.Latitude,d.Longitude]) + ")";
             })
             .on("mouseover", function(d, i) {
-                var div = d3.select(".tooltip");		
+                let div = d3.select("#maptooltip");		
                 div.transition()		
                     .duration(100)
                     .style("opacity", 1);
                 div.html(that.tooltipRender(d, i))
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY) + "px");
+                that.highlightBubble(d.City, true);
             })
-            .on("mouseleave", function() {
-                var div = d3.select(".tooltip");	
+            .on("mouseleave", function(d) {
+                let div = d3.select("#maptooltip");	
                 div.transition()		
                     .duration(100)
                     .style("opacity", 0);	
+                that.highlightBubble(d.City, false);
             })
             .style("border-radius", "50%");
 
@@ -436,6 +439,30 @@ class Map {
         }
         //console.log("Tax paid = " + taxPaid);
         return taxPaid;
+    }
+
+    updateCity(city) {
+        if (city) {
+            let d = this.data.cityCoordinates.find(element => element.City == city);
+            let i = this.cityArray.findIndex(element => element.city == city);
+
+            let projection = d3.geoAlbers();
+            let coordinates = (projection([d.Latitude,d.Longitude]));
+            let div = d3.select("#maptooltip");		
+            div.transition()		
+                .duration(100)
+                .style("opacity", 1);
+            div.html(this.tooltipRender(d, i))
+                .style("left", coordinates[0]+ 410 + "px")
+                .style("top", coordinates[1] + 225+ "px");
+
+        }
+        else {
+            let div = d3.select("#maptooltip");	
+            div.transition()		
+                .duration(100)
+                .style("opacity", 0);	
+        }
     }
 
 }

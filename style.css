@@ -121,6 +121,11 @@ select:focus {outline:0;}
     fill: #EB996F;
 }
 
+.highlighted {
+    opacity: 0.9;
+    fill: #EB996F;
+}
+
 div.tooltip {
     position: absolute;
     text-align: center;
