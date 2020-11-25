@@ -48,9 +48,9 @@ class Map {
      * Gives table header stuff and lines
      */
     setupMap(states) {
-        var index = 0;
+        let index = 0;
         while (index < this.data.averageRentPerCity.length) {
-            var newCity = new City();
+            let newCity = new City();
             newCity.city = this.data.averageRentPerCity[index].City;
             newCity.state = this.data.averageRentPerCity[index].State;
             newCity.averageRent = this.data.averageRentPerCity[index].AvgRent;
@@ -77,14 +77,14 @@ class Map {
             index +=1 ;
         }
 
-        var that = this;
-        var svg = d3.select("#mapsvg")
+        let that = this;
+        let svg = d3.select("#mapsvg")
             .attr("width", 1280)
             .attr("height", 900);
 
         
-        var projection = d3.geoAlbers();         
-        var path = d3.geoPath();
+        let projection = d3.geoAlbers();         
+        let path = d3.geoPath();
 
         svg.append("g")
             .attr("class", "counties")
@@ -113,7 +113,7 @@ class Map {
             .style("opacity", 0);
         
         //Final version, but first gotta find all those useable city coordinates
-        var circles = svg.selectAll("g")
+        let circles = svg.selectAll("g")
             .data(that.data.cityCoordinates)
             .enter()
             .append("g")
@@ -155,18 +155,18 @@ class Map {
         this.salrayData = this.data.salaryPerJobPerCity;
         let minTakehome = 100000000;
         let maxTakehome = 0;
-        var that = this;
-        var svg = d3.select("#mapsvg")
+        let that = this;
+        let svg = d3.select("#mapsvg")
         //Remove all existing pie slices, remove this if implementing transitions
         svg.selectAll(".pieSlice").remove();
 
         //Determine percentages of each category
-        var percentArray = [];
+        let percentArray = [];
         this.cityArray.forEach(element => {
-            var cityPercentArray = [];
-            var salary = +element[jobType];
-            var rent = 0;
-            var overallTaxPaid = 0;
+            let cityPercentArray = [];
+            let salary = +element[jobType];
+            let rent = 0;
+            let overallTaxPaid = 0;
             
             if (that.rentToggle == true) {
                 //Average rent is monthly
@@ -174,7 +174,7 @@ class Map {
             }
             if (that.taxToggle == true) {
                 //Federal taxes
-                var federalTaxRate = "0:10, 9876:12, 40126:22, 85526:24, 163301:32";
+                let federalTaxRate = "0:10, 9876:12, 40126:22, 85526:24, 163301:32";
                 overallTaxPaid += that.calculateProgressiveTaxes(salary, federalTaxRate);
                 //State taxes
                 if (element.stateTaxStyle == "Flat") {
@@ -198,9 +198,9 @@ class Map {
                 element.currentTaxes = overallTaxPaid; 
             }
             if (salary != 0) {
-                var salaryAsPercentageOfWhole = salary;
-                var rentAsPercentageOfWhole = 0;
-                var taxAsPercentageOfWhole = 0;
+                let salaryAsPercentageOfWhole = salary;
+                let rentAsPercentageOfWhole = 0;
+                let taxAsPercentageOfWhole = 0;
 
                 rentAsPercentageOfWhole = rent / salary;
                 cityPercentArray.push("rent:" + rentAsPercentageOfWhole);
@@ -240,18 +240,18 @@ class Map {
             .range([.7, 1.7]);
         
         //Offset set to 1               
-        var percIndex = 1;
+        let percIndex = 1;
         //Number of slices (5th index chosen because 5th index always has non "0" information while many others don't)
-        var pieSlices = percentArray[4].length;
+        let pieSlices = percentArray[4].length;
         svg.selectAll(".city")
             .each(function(d) {
                 if (percentArray[percIndex] != "") {
                     
                     //Calculate percentages that each category will take up
-                    var pieSliceIndex = 0;
-                    var firstSlice = (+percentArray[percIndex][0] * 100);
-                    var secondSlice = null;
-                    var thirdSlice = null;
+                    let pieSliceIndex = 0;
+                    let firstSlice = (+percentArray[percIndex][0] * 100);
+                    let secondSlice = null;
+                    let thirdSlice = null;
                     if (pieSlices >= 2) {
                         secondSlice = (+percentArray[percIndex][1].split(":")[1] * 100);
                     }
@@ -302,7 +302,7 @@ class Map {
                                 //Second slice could be either tax or rent
                                 //If it's tax then we're at the end, if it's rent, there could be another, which would then be the tax color
                                 if (pieSliceIndex == 1) {
-                                    var slice = percentArray[percIndex][pieSliceIndex];
+                                    let slice = percentArray[percIndex][pieSliceIndex];
                                     if (slice.split(":")[0] == "tax") {
                                         return "#EB996F";
                                     }
@@ -346,9 +346,9 @@ class Map {
                                 return "scale(" + (that.scaleRadius(firstSlice * .01 * +that.salrayData[percIndex][jobType])) + ")";
                             })
                         
-                        var angle =  (firstSlice * .01 * 360);
-                        var x2 = 10 * Math.sin((angle + 90) * Math.PI/180);
-                        var y2 = 10 * Math.cos((angle + 90) * Math.PI/180);
+                        let angle =  (firstSlice * .01 * 360);
+                        let x2 = 10 * Math.sin((angle + 90) * Math.PI/180);
+                        let y2 = 10 * Math.cos((angle + 90) * Math.PI/180);
                         d3.select(this)
                             .append("line")
                             .attr("x1", 0)
@@ -390,9 +390,9 @@ class Map {
      * @returns {string}
      */
     tooltipRender(data, i) {
-        var jobType = d3.select("#dropdown").select(".buttons")._groups[0][0].value;
-        var text = "<div style='background-color:white; position:relative;'>" + data.City + "<br>";
-        var takeHome = +this.cityArray[i][jobType];
+        let jobType = d3.select("#dropdown").select(".buttons")._groups[0][0].value;
+        let text = "<div style='background-color:white; position:relative;'>" + data.City + "<br>";
+        let takeHome = +this.cityArray[i][jobType];
         text += "Avg Salary: $" + this.cityArray[i][jobType] + "<br>";
         if (this.rentToggle) {
             text += "Avg Rent: $" + (+this.cityArray[i].averageRent*12).toFixed(2) + "<br>";
