@@ -47,7 +47,6 @@ loadData().then(data => {
      */
     function toggleRent(isOn) {
         map.toggleRent = isOn;
-        console.log("here")
         bubblechart.toggleRent(isOn);
 
     }

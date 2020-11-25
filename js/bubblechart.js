@@ -16,8 +16,19 @@ class BubbleChart {
             let rent_obj = this.data.averageRentPerCity.find(element => (element.City == d.City & element.State == d.State));
             let tax_obj = this.data.stateIncomeTaxRates.find(element => (element.City == d.City & element.State == d.State));
             d.AvgRent = +rent_obj.AvgRent;
-            d.Tax_Rate = tax_obj.Tax_Rate;
+            
             d.Tax_Style = tax_obj.Tax_Style;
+            d.Tax = {};
+            if (tax_obj.Tax_Style == 'Flat') {
+                for (let job of this.jobTypes) {
+                    d.Tax[job] = d[job] * (+tax_obj.Tax_Rate)/100;
+                }
+            }
+            else {
+                for (let job of this.jobTypes) {
+                    d.Tax[job] = this.calculateProgressiveTaxes(d[job], tax_obj.Tax_Rate);
+                }
+            }
         }
         console.log(this.cityData);
         this.drawBackground();
@@ -152,10 +163,57 @@ class BubbleChart {
     }
 
     toggleTax(isOn) {
+        if (isOn) {
+            for (let city of this.cityData) {
+                for (let job of this.jobTypes) {
+                    city[job] -= city.Tax[job];
+                }
+            }
+            this.plot()
+        }
+        else {
+            for (let city of this.cityData) {
+                for (let job of this.jobTypes) {
+                    city[job] += city.Tax[job];
+                }
+            }
+            this.plot()
+        }
 
     }
 
     highlightBest(isOn) {
 
+    }
+
+    calculateProgressiveTaxes(salary, _taxBrackets) {
+        let taxPaid = 0;
+        let taxBrackets = _taxBrackets.split(",");
+        let taxBracketsIndex = 0;
+        while (taxBracketsIndex < taxBrackets.length - 1) {
+            //Find the
+            let percentPaid = taxBrackets[taxBracketsIndex].split(":")[1];
+            let taxBracketLowerBound = +taxBrackets[taxBracketsIndex].split(":")[0];
+            let taxBracketUpperBound = (+taxBrackets[taxBracketsIndex + 1].split(":")[0]) - 1;
+            //If the salary is more than the upper bound of the current tax bracket, pay that entire brackets tax
+            if (taxBracketLowerBound <= salary && taxBracketUpperBound <= salary) {
+                taxPaid += (taxBracketUpperBound - taxBracketLowerBound) * (percentPaid * .01);
+            }
+            //If the salary is less than the upper bound of the tax bracket, only pay for the amount that goes over the lower bound
+            else if (taxBracketLowerBound <= salary && taxBracketUpperBound > salary) {
+                taxPaid += (salary - taxBracketLowerBound) * (percentPaid * .01);
+            }
+            //console.log("Paying: " + percentPaid + "% from " + taxBracketLowerBound + " to " + taxBracketUpperBound + "= " + taxPaid);
+            taxBracketsIndex += 1;
+        }
+        //We stop short one because of index out of bounds, so this is how we add the details of the last tax bracket
+        let taxBracketLowerBound = +taxBrackets[taxBracketsIndex].split(":")[0];
+        let percentPaid = taxBrackets[taxBracketsIndex].split(":")[1];
+        if (taxBracketLowerBound <= salary) {
+            taxPaid += (salary - taxBracketLowerBound) * (percentPaid * .01);
+            //console.log("Paying: " + percentPaid + "% from " + taxBracketLowerBound + " to " + salary + "= " + taxPaid);
+        }
+        //console.log("Tax paid = " + taxPaid);
+        return taxPaid;
     }
 }
