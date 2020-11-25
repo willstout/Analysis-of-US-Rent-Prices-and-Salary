@@ -408,14 +408,14 @@ class Map {
 
 
     calculateProgressiveTaxes(salary, _taxBrackets) {
-        var taxPaid = 0;
-        var taxBrackets = _taxBrackets.split(",");
-        var taxBracketsIndex = 0;
+        let taxPaid = 0;
+        let taxBrackets = _taxBrackets.split(",");
+        let taxBracketsIndex = 0;
         while (taxBracketsIndex < taxBrackets.length - 1) {
             //Find the
-            var percentPaid = taxBrackets[taxBracketsIndex].split(":")[1];
-            var taxBracketLowerBound = +taxBrackets[taxBracketsIndex].split(":")[0];
-            var taxBracketUpperBound = (+taxBrackets[taxBracketsIndex + 1].split(":")[0]) - 1;
+            let percentPaid = taxBrackets[taxBracketsIndex].split(":")[1];
+            let taxBracketLowerBound = +taxBrackets[taxBracketsIndex].split(":")[0];
+            let taxBracketUpperBound = (+taxBrackets[taxBracketsIndex + 1].split(":")[0]) - 1;
             //If the salary is more than the upper bound of the current tax bracket, pay that entire brackets tax
             if (taxBracketLowerBound <= salary && taxBracketUpperBound <= salary) {
                 taxPaid += (taxBracketUpperBound - taxBracketLowerBound) * (percentPaid * .01);
@@ -428,8 +428,8 @@ class Map {
             taxBracketsIndex += 1;
         }
         //We stop short one because of index out of bounds, so this is how we add the details of the last tax bracket
-        var taxBracketLowerBound = +taxBrackets[taxBracketsIndex].split(":")[0];
-        var percentPaid = taxBrackets[taxBracketsIndex].split(":")[1];
+        let taxBracketLowerBound = +taxBrackets[taxBracketsIndex].split(":")[0];
+        let percentPaid = taxBrackets[taxBracketsIndex].split(":")[1];
         if (taxBracketLowerBound <= salary) {
             taxPaid += (salary - taxBracketLowerBound) * (percentPaid * .01);
             //console.log("Paying: " + percentPaid + "% from " + taxBracketLowerBound + " to " + salary + "= " + taxPaid);
