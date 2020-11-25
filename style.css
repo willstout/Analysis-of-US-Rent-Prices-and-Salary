@@ -4,7 +4,7 @@
 
 body {
     display: grid;
-    grid-template-columns: 400px 1200px;
+    grid-template-columns: 350px 1200px;
     grid-template-rows: 150px 50px 900px;
     grid-template-areas: 
         "header header"
@@ -43,7 +43,7 @@ select:focus {outline:0;}
 #map {
     grid-area: map;
     margin-left: 60px;
-    margin-top:60px;
+    margin-top:30px;
 }
 
 .states {
@@ -53,8 +53,7 @@ select:focus {outline:0;}
 }
 
 .background {
-    fill: gray;
-    opacity: 0.2;
+    fill: #F1E9DA;
 }
 
 .buttons {
@@ -63,9 +62,10 @@ select:focus {outline:0;}
 }
 
 .dropdown-label {
-    color: #008CBA;
+    color: purple;
     margin-right: 10px;
     font-size: larger;
+    font-weight: 500;
 }
 
 .click-button {
@@ -74,16 +74,16 @@ select:focus {outline:0;}
     min-width: 150px;
     height: 40px;
     font-size: large;
-    color: #008CBA;
+    color: purple;
     border-style: solid;
     border-width: 2pt;
     border-radius: 5px;
-    border-color: #008CBA;
+    border-color: purple;
 }
 
 .clicked {
     color: white;
-    background-color: #008CBA;
+    background-color: purple;
 }
 
 #axis-label {
@@ -110,15 +110,15 @@ select:focus {outline:0;}
   }
 
 .bubble {
-    fill: #800080;
-    opacity: 0.2;
+    fill: purple;
+    opacity: 0.3;
     stroke: white;
-    stroke-width: 2px;
+    stroke-width: 3px;
 }
 
 .bubble:hover {
-    opacity: 0.7;
-    fill: orange;
+    opacity: 0.9;
+    fill: #EB996F;
 }
 
 div.tooltip {

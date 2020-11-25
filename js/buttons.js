@@ -1,8 +1,9 @@
 class Buttons {
-    constructor(data, updateJobType, toggleRent, toggleTax){
+    constructor(data, updateJobType, toggleRent, toggleTax, highlightBest){
         this.updateJobType = updateJobType;
         this.toggleRent = toggleRent;
         this.toggleTax = toggleTax;
+        this.highlightBest = highlightBest;
 
         this.jobTypes = data.salaryPerJobPerCity;
         this.jobTypes = Object.keys(this.jobTypes[0]);

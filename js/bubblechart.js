@@ -84,17 +84,18 @@ class BubbleChart {
 
         let ticks = [sMax, sMin];
         let tickValue = sMax - sMax%5000;
+        if (sMax - tickValue < 2000) {tickValue -= 5000;}
         while (tickValue > sMin) {
-            ticks.push(tickValue);
+            if (tickValue - sMin > 2000) {ticks.push(tickValue);}
             tickValue -= 5000;
         }   
 
         d3.select("#axis").call(d3.axisLeft(this.axisScale)
                                     .tickPadding(20)
                                     //.tickFormat(d3.format(".2s"))
-                                    .tickSize(80)
+                                    .tickSize(70)
                                     .tickValues(ticks))
-                        .attr('transform', 'translate(40, 0)');
+                        .attr('transform', 'translate(35, 0)');
 
         d3.select('#bubbleChart')
             .append('div')
