@@ -3,8 +3,8 @@ loadData().then(data => {
     
     // Creates the view objects
     const map = new Map(data, updateJobType, updateCity);
-    const bubblechart = new BubbleChart(data, updateJobType, updateCity);
-    const buttons = new Buttons(data, updateJobType);
+    const bubblechart = new BubbleChart(data, updateJobType, updateCity, toggleRent, toggleTax);
+    const buttons = new Buttons(data, updateJobType, toggleRent, toggleTax);
 
     //Setup bubbleChart space
     
