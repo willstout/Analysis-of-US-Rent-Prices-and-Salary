@@ -2,8 +2,24 @@ class BubbleChart {
     constructor(data, updateJobType, updateCity) {
         this.updateJobType = updateJobType;
         this.updateCity = updateCity;
-        this.data = data
-        console.log(data);
+        this.data = data;
+
+        this.jobTypes = this.data.salaryPerJobPerCity;
+        this.jobTypes = Object.keys(this.jobTypes[0]);
+        this.jobTypes.splice(0, 2);
+
+        this.cityData = this.data.salaryPerJobPerCity;
+        for (let d of this.cityData) {
+            for (let job of this.jobTypes) {
+                d[job] = +d[job];
+            }
+            let rent_obj = this.data.averageRentPerCity.find(element => (element.City == d.City & element.State == d.State));
+            let tax_obj = this.data.stateIncomeTaxRates.find(element => (element.City == d.City & element.State == d.State));
+            d.AvgRent = +rent_obj.AvgRent;
+            d.Tax_Rate = tax_obj.Tax_Rate;
+            d.Tax_Style = tax_obj.Tax_Style;
+        }
+        console.log(this.cityData);
         this.drawBackground();
     }
 
@@ -35,19 +51,20 @@ class BubbleChart {
     }
 
     updatePlot(jobType) {
-        this.salrayData = this.data.salaryPerJobPerCity;
-        let sMax = d3.max(this.salrayData, d=>+d[jobType]);
-        let sMin = d3.min(this.salrayData, d=>+d[jobType]>0 ? +d[jobType] : Infinity);
-        this.plot(sMax, sMin, jobType);
+        this.jobType = jobType;
+        this.plot();
     }
 
-    plot(sMax, sMin, jobType) {
+    plot() {
         let that = this;
 
-        d3.select('#axis-label')
-            .text("Average Salary")
-            .style("text-anchor", "top")
-            .attr('transform', 'translate(-110, -10)');
+        // d3.select('#axis-label')
+        //     .text("Average Salary")
+        //     .style("text-anchor", "top")
+        //     .attr('transform', 'translate(-110, -10)');
+
+        let sMax = d3.max(this.cityData, d=>+d[this.jobType]);
+        let sMin = d3.min(this.cityData, d=>+d[this.jobType]>0 ? +d[this.jobType] : Infinity);
 
         this.axisScale = d3
                         .scaleLinear()
@@ -76,10 +93,10 @@ class BubbleChart {
         const tooltip = d3.select(".tooltip");
         
         d3.select('#bubbleGroup').selectAll('circle')
-                        .data(this.salrayData)
+                        .data(this.cityData)
                         .join('circle')
                         .attr('cx', 0)
-                        .attr('cy', d=>this.axisScale(+d[jobType]))
+                        .attr('cy', d=>this.axisScale(+d[this.jobType]))
                         .attr('r', 30)
                         .classed('bubble', true)
                         .on("mouseover", function(d) {
@@ -89,7 +106,6 @@ class BubbleChart {
                                 .style("opacity", 1);
                             tooltip
                                 .html(that.tooltipRender(d))
-                            //make the tooltip at the mouse location based on d3.event
                                 .style("left", "250px")
                                 .style("top", `${+d3.select(this).attr("cy")+160}px`);
                         })
@@ -116,6 +132,22 @@ class BubbleChart {
     }
 
     toggleRent(isOn) {
+        if (isOn) {
+            for (let city of this.cityData) {
+                for (let job of this.jobTypes) {
+                    city[job] -= city.AvgRent;
+                }
+            }
+            this.plot()
+        }
+        else {
+            for (let city of this.cityData) {
+                for (let job of this.jobTypes) {
+                    city[job] += city.AvgRent;
+                }
+            }
+            this.plot()
+        }
 
     }
 
