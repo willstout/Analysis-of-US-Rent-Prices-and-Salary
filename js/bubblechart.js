@@ -172,7 +172,7 @@ class BubbleChart {
         if (isOn) {
             for (let city of this.cityData) {
                 for (let job of this.jobTypes) {
-                    city[job] -= city.AvgRent;
+                    city[job] -= 12*city.AvgRent;
                 }
             }
             this.plot()
@@ -180,7 +180,7 @@ class BubbleChart {
         else {
             for (let city of this.cityData) {
                 for (let job of this.jobTypes) {
-                    city[job] += city.AvgRent;
+                    city[job] += 12*city.AvgRent;
                 }
             }
             this.plot()
