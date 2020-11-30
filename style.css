@@ -126,6 +126,11 @@ select:focus {outline:0;}
     fill: #EB996F;
 }
 
+.topthreebubble {
+    opacity: 0.9;
+    fill: #9EA5D1;
+}
+
 div.tooltip {
     position: absolute;
     text-align: center;

@@ -48,6 +48,7 @@ class Buttons {
         drop.on('change', function () {
             let value = this.options[this.selectedIndex].value;
             that.updateJobType(value);
+            that.highlightBest(false);
         });
 
         
@@ -64,6 +65,7 @@ class Buttons {
                             d3.select('#rent-button').classed('clicked', true);
                             that.toggleRent(true);
                         }
+                        that.highlightBest(false);
                     });
         
         buttonPanel
@@ -79,6 +81,7 @@ class Buttons {
                             d3.select('#tax-button').classed('clicked', true);
                             that.toggleTax(true);
                         }
+                        that.highlightBest(false);
                     });
 
         buttonPanel

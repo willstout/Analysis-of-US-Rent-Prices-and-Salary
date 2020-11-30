@@ -5,8 +5,7 @@ class BubbleChart {
         this.data = data;
         console.log(this.data);
 
-        this.jobTypes = JSON.parse(JSON.stringify(this.data.salaryPerJobPerCity));
-        this.jobTypes = Object.keys(this.jobTypes[0]);
+        this.jobTypes = Object.keys(this.data.salaryPerJobPerCity[0]);
         this.jobTypes.splice(0, 2);
 
         this.cityData = JSON.parse(JSON.stringify(this.data.salaryPerJobPerCity));
@@ -137,6 +136,7 @@ class BubbleChart {
                                 .html(that.tooltipRender(d))
                                 .style("left", "250px")
                                 .style("top", `${+d3.select(this).attr("cy")+145}px`);
+                            d3.select(this).raise();
                             that.highlightPieChart(d.City);
                         })
                         .on("mouseleave", function() {
@@ -224,6 +224,25 @@ class BubbleChart {
     }
 
     highlightBest(isOn) {
+        if (isOn) {
+            this.cityData.sort((a, b) => (a[this.jobType].toDraw < b[this.jobType].toDraw) ? 1 : -1);
+            let bestCities = [];
+            bestCities.push(this.cityData[0].City);
+            bestCities.push(this.cityData[1].City);
+            bestCities.push(this.cityData[2].City);
+            console.log(bestCities);
+            let bubbles = d3.select('#bubbleChart')
+                            .selectAll("circle")
+                            .filter(e => bestCities.includes(e.City))
+                            .classed('topthreebubble', true);
+            bubbles.raise();
+        } else {
+            d3.select('#highlight-button').classed('clicked', false);
+            d3.select('#bubbleChart')
+                .selectAll("circle")
+                .classed('topthreebubble', false);
+
+        }
 
     }
 
