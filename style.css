@@ -126,8 +126,8 @@ select:focus {outline:0;}
     fill: #EB996F;
 }
 
-.topthreebubble {
-    opacity: 0.9;
+.topbubbles {
+    opacity: 0.6;
     fill: #9EA5D1;
 }
 

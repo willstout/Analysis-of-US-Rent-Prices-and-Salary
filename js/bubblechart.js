@@ -64,16 +64,40 @@ class BubbleChart {
             .attr('transform', 'translate(105, 10)');
         
         let svgGroup = d3.select('#bubbleChart').select('svg')
-            .append('g')
-            .attr('id', 'plotGroup')
-            .attr('width', '100%')
-            .attr('height', '100%')
-            .attr('transform', 'translate(140, 5)');
+                            .append('g')
+                            .attr('id', 'plotGroup')
+                            .attr('width', '100%')
+                            .attr('height', '100%')
+                            .attr('transform', 'translate(140, 5)');
 
         svgGroup.append('g').attr('id', 'axis');
         svgGroup.append("text").attr("id", "axis-label");
         svgGroup.append('g').attr('id', 'bubbleGroup');
+
+        d3.select('#bubbleChart')
+            .append('div')
+            .attr("class", "tooltip")
+            .attr('id', 'bubbletooltip')
+            .style("opacity", 0);
         
+        d3.select('#bubbleChart')
+            .append('div')
+            .attr("class", "tooltip")
+            .attr('id', 'bubbletipone')
+            .style("opacity", 0);
+        
+        d3.select('#bubbleChart')
+            .append('div')
+            .attr("class", "tooltip")
+            .attr('id', 'bubbletiptwo')
+            .style("opacity", 0);
+        
+        d3.select('#bubbleChart')
+            .append('div')
+            .attr("class", "tooltip")
+            .attr('id', 'bubbletipthree')
+            .style("opacity", 0);
+            
     }
 
     updatePlot(jobType) {
@@ -111,12 +135,6 @@ class BubbleChart {
                                     .tickSize(70)
                                     .tickValues(ticks))
                         .attr('transform', 'translate(35, 0)');
-
-        d3.select('#bubbleChart')
-            .append('div')
-            .attr("class", "tooltip")
-            .attr('id', 'bubbletooltip')
-            .style("opacity", 0);
         
         const tooltip = d3.select("#bubbletooltip");
         
@@ -224,24 +242,80 @@ class BubbleChart {
     }
 
     highlightBest(isOn) {
+        const tooltip1 = d3.select("#bubbletipone");
+        const tooltip2 = d3.select("#bubbletiptwo");
+        const tooltip3 = d3.select("#bubbletipthree");
+
         if (isOn) {
             this.cityData.sort((a, b) => (a[this.jobType].toDraw < b[this.jobType].toDraw) ? 1 : -1);
-            let bestCities = [];
-            bestCities.push(this.cityData[0].City);
-            bestCities.push(this.cityData[1].City);
-            bestCities.push(this.cityData[2].City);
-            console.log(bestCities);
-            let bubbles = d3.select('#bubbleChart')
+            const city1 = this.cityData[0].City;
+            const city2 = this.cityData[1].City;
+            const city3 = this.cityData[2].City;
+
+            let bubble1 = d3.select('#bubbleChart')
                             .selectAll("circle")
-                            .filter(e => bestCities.includes(e.City))
-                            .classed('topthreebubble', true);
-            bubbles.raise();
+                            .filter(e => e.City === city1);
+
+            let bubble2 = d3.select('#bubbleChart')
+                            .selectAll("circle")
+                            .filter(e => e.City === city2);
+
+            let bubble3 = d3.select('#bubbleChart')
+                            .selectAll("circle")
+                            .filter(e => e.City === city3);
+
+            bubble1.classed('topbubbles', true);
+            bubble1.raise();
+
+            bubble2.classed('topbubbles', true);
+            bubble2.raise();
+
+            bubble3.classed('topbubbles', true);
+            bubble3.raise();
+
+            let data1 = this.cityData.find(element => element.City == city1);
+            let data2 = this.cityData.find(element => element.City == city2);
+            let data3 = this.cityData.find(element => element.City == city3);
+
+            tooltip1.transition()		
+                .duration(100)
+                .style("opacity", 1);
+            tooltip1.html(this.tooltipRender(data1))
+                .style("left", "250px")
+                .style("top", `${+bubble1.attr('cy')+145}px`);
+
+            tooltip2.transition()		
+                .duration(100)
+                .style("opacity", 1);
+            tooltip2.html(this.tooltipRender(data2))
+                .style("left", "250px")
+                .style("top", `${+bubble2.attr('cy')+145}px`);
+
+            tooltip3.transition()		
+                .duration(100)
+                .style("opacity", 1);
+            tooltip3.html(this.tooltipRender(data3))
+                .style("left", "250px")
+                .style("top", `${+bubble3.attr('cy')+145}px`);
+
         } else {
             d3.select('#highlight-button').classed('clicked', false);
+
             d3.select('#bubbleChart')
                 .selectAll("circle")
-                .classed('topthreebubble', false);
+                .classed('topbubbles', false);
 
+            tooltip1.transition()		
+                .duration(100)
+                .style("opacity", 0);	
+
+            tooltip2.transition()		
+                .duration(100)
+                .style("opacity", 0);	
+
+            tooltip3.transition()		
+                .duration(100)
+                .style("opacity", 0);	
         }
 
     }
