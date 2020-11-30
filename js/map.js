@@ -40,8 +40,8 @@ class Map {
         this.highlightBubble = highlightBubble;
         this.cityArray = [];
         this.data = data 
-        this.rentToggle = true;
-        this.taxToggle = true;
+        this.rentToggle = false;
+        this.taxToggle = false;
         this.currentJobType = "";
     }
 

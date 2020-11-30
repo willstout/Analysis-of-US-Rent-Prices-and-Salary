@@ -4,7 +4,7 @@ loadData().then(data => {
     // Creates the view objects
     const map = new Map(data, updateJobType, highlightBubble);
     const bubblechart = new BubbleChart(data, updateJobType, highlightPieChart, toggleRent, toggleTax);
-    const buttons = new Buttons(data, updateJobType, toggleRent, toggleTax);
+    const buttons = new Buttons(data, updateJobType, toggleRent, toggleTax, highlightBest);
 
     //Setup bubbleChart space
     
@@ -50,7 +50,7 @@ loadData().then(data => {
      * @param isOn - Boolean that reperensents whether rent is toggled or not
      */
     function toggleRent(isOn) {
-        map.toggleRent = isOn;
+        map.rentToggle = isOn;
         map.updateMap(map.currentJobType);
         bubblechart.toggleRent(isOn);
 
@@ -61,7 +61,7 @@ loadData().then(data => {
      * @param isOn - Boolean that reperensents whether tax is toggled or not
      */
     function toggleTax(isOn) {
-        map.toggleTax = isOn;
+        map.taxToggle = isOn;
         map.updateMap(map.currentJobType);
         bubblechart.toggleTax(isOn);
     }
