@@ -43,6 +43,7 @@ class Map {
         this.rentToggle = false;
         this.taxToggle = false;
         this.currentJobType = "";
+        this.mostRecentlyHighlighted = "";
     }
 
     /**
@@ -128,7 +129,7 @@ class Map {
                     .duration(100)
                     .style("opacity", 1);
                 div.html(that.tooltipRender(d, i))
-                    .style("left", (d3.event.pageX) + "px")
+                    .style("left", (d3.event.pageX + 30) + "px")
                     .style("top", (d3.event.pageY) + "px");
                 that.highlightBubble(d.City, true);
             })
@@ -257,7 +258,7 @@ class Map {
                     //Background slice
                     d3.select(this)
                         .append("circle")
-                        .attr("class", "pieSlice " + that.cityArray[percIndex].city)
+                        .attr("class", "pieSlice " + (that.cityArray[percIndex].city).replace(" ", "").replace(" ", "").replace(".", ""))
                         .attr("fill", "black")
                         .attr("r", function(d,i) {
                             if (+that.salrayData[percIndex][jobType] > 0) {
@@ -473,16 +474,27 @@ class Map {
                 .duration(100)
                 .style("opacity", 1);
             div.html(this.tooltipRender(d, i))
-                .style("left", coordinates[0]+ 410 + "px")
+                .style("left", coordinates[0]+ 430 + "px")
                 .style("top", coordinates[1] + 225+ "px");
+
+            //Increases black ring
+            //alert(("circle." + (city.replace(" ", "")).replace(" ", "").replace(".", "")));
+            let x = d3.select("circle." + city.replaceAll(" ", "").replace(".", ""));
+            x.attr("r", 12);
+            this.mostRecentlyHighlighted = city;
 
         }
         else {
             let div = d3.select("#maptooltip");	
             div.transition()		
                 .duration(100)
-                .style("opacity", 0);	
+                .style("opacity", 0);
+                
+            //Makes black ring normal length again
+            let x = d3.select("circle." + this.mostRecentlyHighlighted.replace(" ", "").replace(" ","").replace(".",""));
+            x.attr("r", 10);
         }
+
     }
 
 }

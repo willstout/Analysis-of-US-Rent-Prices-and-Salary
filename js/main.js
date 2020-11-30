@@ -21,9 +21,6 @@ loadData().then(data => {
         }
     
 
-    
-
-
     /**
      *
      * @param jobType - String that represents the selected job type
@@ -38,10 +35,17 @@ loadData().then(data => {
      * @param city - String that represents the selected city
      */
     function highlightPieChart(city) {
+        //alert("here")
         map.updateCity(city);
     }
 
     function highlightBubble(city, isOn) {
+        if (isOn) {
+            map.updateCity(city);
+        }
+        else {
+            map.updateCity("");
+        }
         bubblechart.updateCity(city, isOn);
     }
 
