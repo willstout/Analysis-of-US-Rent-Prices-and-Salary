@@ -8,7 +8,7 @@ class Buttons {
         this.jobTypes = data.salaryPerJobPerCity;
         this.jobTypes = Object.keys(this.jobTypes[0]);
         this.jobTypes.splice(0, 2);
-
+        this.jobTypes.splice(13, 3);
         this.drawButtons();
     }
 

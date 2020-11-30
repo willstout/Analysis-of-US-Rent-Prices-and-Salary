@@ -51,6 +51,7 @@ loadData().then(data => {
      */
     function toggleRent(isOn) {
         map.toggleRent = isOn;
+        map.updateMap(map.currentJobType);
         bubblechart.toggleRent(isOn);
 
     }
@@ -61,6 +62,7 @@ loadData().then(data => {
      */
     function toggleTax(isOn) {
         map.toggleTax = isOn;
+        map.updateMap(map.currentJobType);
         bubblechart.toggleTax(isOn);
     }
 

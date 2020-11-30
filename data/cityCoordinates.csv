@@ -1,39 +1,39 @@
 City,State,Latitude,Longitude
 Akron,OH,-79.1,38.76
 Albuquerque,NM,-108,31.3
-Allentown,PA,-72.3,37.76
-Anaheim,CA,-121,30
+Allentown,PA,-73.2,38.1
+Anaheim,CA,-120.9,29.6
 Atlanta,GA,-82.7,30
 Augusta,GA,-79.7,29.2
-Austin,TX,-98,25.4
-Bakersfield,CA,-122.6,31.6
+Austin,TX,-97.6,25.9
+Bakersfield,CA,-122.3,31.6
 Baltimore,MD,-73.3,36.7
 Baton Rouge,LA,-89.6,25.7
 Birmingham,AL,-85.4,29.8
 Boise,ID,-119.5,41.9
 Boston,MA,-66.7,40
-Boulder,CO,-106.6,37.7
-Buffalo,NY,-76,41
+Boulder,CO,-106.6,38
+Buffalo,NY,-76.3,41
 Charleston,SC,-78,28.5
 Charlotte,NC,-78.5,31.5
 Chattanooga,TN,-83.4,31.6
 Chicago,IL,-86.1,39.8
-Cincinnati,OH,-82.6,36.4
-Cleveland,OH,-79.3,39.3
+Cincinnati,OH,-82.6,36.3
+Cleveland,OH,-78.9,39.3
 Colorado Springs,CO,-106.5,35.9
 Columbia,SC,-78.5,30.3
 Columbus,OH,-80.5,37.8
-Dallas,TX,-97,28.9
+Dallas,TX,-96.6,28.9
 Dayton,OH,-82,37.4
 Denver,CO,-106.5,37
 Des Moines,IA,-93,39.5
 Detroit,MI,-81,40
-Durham,NC,-76,32.7
+Durham,NC,-76.5,33.1
 El Paso,TX,-108,27.8
 Fort Collins,CO,-106.4,38.2
 Fort Lauderdale,FL,-78,20.5
-Fort Worth,TX,-97.5,28.9
-Fresno,CA,-122.6,31.6
+Fort Worth,TX,-97.9,28.9
+Fresno,CA,-122.6,31.9
 Grand Rapids,MI,-84,41
 Greeley,CO,-105.7,37.8
 Hartford,CT,-68.9,39.1
@@ -49,16 +49,16 @@ Lakeland,FL,-79.9,23
 Las Vegas,NV,-117.8,32.8
 Little Rock,AR,-91.8,31.4
 Long Beach,CA,-121.3,29.8
-Los Angeles,CA,-121.3,30.4
+Los Angeles,CA,-121.5,30.9
 Louisville,KY,-84.2,35.3
 Madison,WI,-88.2,41.2
 Memphis,TN,-89.2,31.8
 Miami,FL,-78.2,20
 Milwaukee,WI,-86.5,41.4
-Minneapolis,MN,-92.5,43.4
+Minneapolis,MN,-93.0,43.9
 Nashville,TN,-84.8,32.7
 New Haven,CT,-69.1,38.8
-New Orleans,LA,-88.7,25.4
+New Orleans,LA,-88.4,25.4
 New York,NY,-70.2,38.1
 Oklahoma City,OK,-97.5,32.1
 Omaha,NE,-95.7,39.0
@@ -68,21 +68,21 @@ Phoenix,AZ,-114.2,29.6
 Pittsburgh,PA,-77.5,38
 Portland,OR,-127,43.5
 Providence,RI,-67.5,39.1
-Provo,UT,-113.9,38
-Raleigh,NC,-76,32.7
+Provo,UT,-113.7,37.5
+Raleigh,NC,-75.5,32.4
 Richmond,VA,-74.4,34.4
-Riverside,CA,-120.5,30.4
+Riverside,CA,-120.0,30.4
 Rochester,NY,-74.6,41.2
-Sacramento,CA,-125.3,35.5
-Salt Lake City,UT,-114.1,38.2
+Sacramento,CA,-125.1,35.5
+Salt Lake City,UT,-114.3,38.5
 San Antonio,TX,-98.8,24.9
 San Diego,CA,-120.1,28.5
-San Francisco,CA,-126.3,34.5
-San Jose,CA,-125.6,33.9
+San Francisco,CA,-126.6,34.9
+San Jose,CA,-125.3,33.9
 Seattle,WA,-126.8,46.5
 Spokane,WA,-121.1,46.5
 St. Louis,MO,-89.2,36
-St. Paul,MN,-92.2,43.3
+St. Paul,MN,-91.8,43.0
 Stamford,CT,-69.6,38.5
 Stockton,CA,-124.8,34.9
 Syracuse,NY,-72.8,41

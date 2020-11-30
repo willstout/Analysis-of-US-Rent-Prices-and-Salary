@@ -42,6 +42,7 @@ class Map {
         this.data = data 
         this.rentToggle = true;
         this.taxToggle = true;
+        this.currentJobType = "";
     }
 
     /**
@@ -139,19 +140,11 @@ class Map {
                 that.highlightBubble(d.City, false);
             })
             .style("border-radius", "50%");
-
-            // .style("left", "250px")
-            // .style("top", `${300}px`);
-
-            // .style("left", (d3.event.pageX) + "px")		
-            // .style("top", (d3.event.pageY) + "px");
-
-
     }
 
     //Update map
     updateMap(jobType) {
-        
+        this.currentJobType = jobType;
         this.salrayData = this.data.salaryPerJobPerCity;
         let minTakehome = 100000000;
         let maxTakehome = 0;
@@ -238,6 +231,8 @@ class Map {
             .scaleLinear()
             .domain([minTakehome, maxTakehome])
             .range([.7, 1.7]);
+
+        var restrictList = ["Cleveland", "Irvine", "Greeley", "Fort Collins", "Stamford", "Hartford", "Fort Lauderdale", "Lakeland", "Long Beach", "Stockton", "Ventura", "Bakersfield", "Toledo", "Baltimore", "Worcester"];
         
         //Offset set to 1               
         let percIndex = 1;
@@ -264,8 +259,21 @@ class Map {
                         .append("circle")
                         .attr("class", "pieSlice " + that.cityArray[percIndex].city)
                         .attr("fill", "black")
-                        .attr("r", 10)
+                        .attr("r", function(d,i) {
+                            if (+that.salrayData[percIndex][jobType] > 0) {
+                                if (restrictList.includes(d.City)) {
+                                    return 0;
+                                }
+                                else {
+                                    return 10;
+                                }
+                            }
+                            else {
+                                return 0;
+                            }
+                        })
                         .attr("transform", function(d, i) {
+                            //console.log(firstSlice + " " + +that.salrayData[percIndex][jobType]);
                             return "scale(" + (that.borderScaleRadius(firstSlice * .01 * +that.salrayData[percIndex][jobType])) + ")";
                         })
                     
@@ -318,7 +326,12 @@ class Map {
                             .attr("class", "pieSlice " + that.cityArray[percIndex].city)
                             .attr("r", function(d,i) {
                                 if (+that.salrayData[percIndex][jobType] > 0) {
-                                    return 5;
+                                    if (restrictList.includes(d.City)) {
+                                        return 0;
+                                    }
+                                    else {
+                                        return 5;
+                                    }
                                 }
                                 else {
                                     return 0;
@@ -332,51 +345,58 @@ class Map {
                             .style("border", "black")
                         pieSliceIndex += 1;
 
-                        //lines
-                        d3.select(this)
-                            .append("line")
-                            .attr("x1", 0)
-                            .attr("y1", 0)
-                            .attr("x2", 10)
-                            .attr("y2", 0)
-                            .attr("class", "pieSlice " + that.cityArray[percIndex].city)
-                            .style("stroke","black")
-                            .style("stroke-width",.7)
-                            .attr("transform", function(d, i) {
-                                return "scale(" + (that.scaleRadius(firstSlice * .01 * +that.salrayData[percIndex][jobType])) + ")";
-                            })
-                        
-                        let angle =  (firstSlice * .01 * 360);
-                        let x2 = 10 * Math.sin((angle + 90) * Math.PI/180);
-                        let y2 = 10 * Math.cos((angle + 90) * Math.PI/180);
-                        d3.select(this)
-                            .append("line")
-                            .attr("x1", 0)
-                            .attr("y1", 0)
-                            .attr("x2", x2)
-                            .attr("y2", y2)
-                            .attr("class", "pieSlice " + that.cityArray[percIndex].city)
-                            .style("stroke","black")
-                            .style("stroke-width",.7)
-                            .attr("transform", function(d, i) {
-                                return "scale(" + (that.scaleRadius(firstSlice * .01 * +that.salrayData[percIndex][jobType])) + ")";
-                            })
-
-                        angle =  ((firstSlice + secondSlice) * .01 * 360);
-                        x2 = 10 * Math.sin((angle + 90) * Math.PI/180);
-                        y2 = 10 * Math.cos((angle + 90) * Math.PI/180);
-                        d3.select(this)
-                            .append("line")
-                            .attr("x1", 0)
-                            .attr("y1", 0)
-                            .attr("x2", x2)
-                            .attr("y2", y2)
-                            .attr("class", "pieSlice " + that.cityArray[percIndex].city)
-                            .style("stroke","black")
-                            .style("stroke-width",.7)
-                            .attr("transform", function(d, i) {
-                                return "scale(" + (that.scaleRadius(firstSlice * .01 * +that.salrayData[percIndex][jobType])) + ")";
-                            })
+                        //Percentage lines
+                        if (!restrictList.includes(d.City)) {
+                            if (secondSlice != 0 || thirdSlice != 0) {
+                                d3.select(this)
+                                    .append("line")
+                                    .attr("x1", 0)
+                                    .attr("y1", 0)
+                                    .attr("x2", 10)
+                                    .attr("y2", 0)
+                                    .attr("class", "pieSlice " + that.cityArray[percIndex].city)
+                                    .style("stroke","black")
+                                    .style("stroke-width",.7)
+                                    .attr("transform", function(d, i) {
+                                        return "scale(" + (that.scaleRadius(firstSlice * .01 * +that.salrayData[percIndex][jobType])) + ")";
+                                    })
+                                
+                            }
+                            if (secondSlice != 0) {
+                                var angle =  (firstSlice * .01 * 360);
+                                var x2 = 10 * Math.sin((angle + 90) * Math.PI/180);
+                                var y2 = 10 * Math.cos((angle + 90) * Math.PI/180);
+                                d3.select(this)
+                                    .append("line")
+                                    .attr("x1", 0)
+                                    .attr("y1", 0)
+                                    .attr("x2", x2)
+                                    .attr("y2", y2)
+                                    .attr("class", "pieSlice " + that.cityArray[percIndex].city)
+                                    .style("stroke","black")
+                                    .style("stroke-width",.7)
+                                    .attr("transform", function(d, i) {
+                                        return "scale(" + (that.scaleRadius(firstSlice * .01 * +that.salrayData[percIndex][jobType])) + ")";
+                                    })
+                                }
+                            if (thirdSlice != 0) {
+                                angle =  ((firstSlice + secondSlice) * .01 * 360);
+                                x2 = 10 * Math.sin((angle + 90) * Math.PI/180);
+                                y2 = 10 * Math.cos((angle + 90) * Math.PI/180);
+                                d3.select(this)
+                                    .append("line")
+                                    .attr("x1", 0)
+                                    .attr("y1", 0)
+                                    .attr("x2", x2)
+                                    .attr("y2", y2)
+                                    .attr("class", "pieSlice " + that.cityArray[percIndex].city)
+                                    .style("stroke","black")
+                                    .style("stroke-width",.7)
+                                    .attr("transform", function(d, i) {
+                                        return "scale(" + (that.scaleRadius(firstSlice * .01 * +that.salrayData[percIndex][jobType])) + ")";
+                                    })
+                            }
+                        }
                         
                     }
                 }
