@@ -5,32 +5,47 @@ class BubbleChart {
         this.data = data;
         console.log(this.data);
 
-        this.jobTypes = this.data.salaryPerJobPerCity;
+        this.jobTypes = JSON.parse(JSON.stringify(this.data.salaryPerJobPerCity));
         this.jobTypes = Object.keys(this.jobTypes[0]);
         this.jobTypes.splice(0, 2);
 
-        this.cityData = this.data.salaryPerJobPerCity;
+        this.cityData = JSON.parse(JSON.stringify(this.data.salaryPerJobPerCity));
         for (let d of this.cityData) {
             for (let job of this.jobTypes) {
-                d[job] = +d[job];
+                let salary = +d[job];
+                d[job] = {};
+                d[job].salary = salary;
+                d[job].toDraw = salary;
             }
             let rent_obj = this.data.averageRentPerCity.find(element => (element.City == d.City & element.State == d.State));
-            let tax_obj = this.data.stateIncomeTaxRates.find(element => (element.City == d.City & element.State == d.State));
-            d.AvgRent = +rent_obj.AvgRent;
+            let state_tax_obj = this.data.stateIncomeTaxRates.find(element => (element.City == d.City & element.State == d.State));
+            let local_tax_obj = this.data.localIncomeTaxRates.find(element => (element.City == d.City & element.State == d.State));
+            d.AvgRent = +rent_obj.AvgRent*12;
             
-            d.Tax_Style = tax_obj.Tax_Style;
             d.Tax = {};
-            if (tax_obj.Tax_Style == 'Flat') {
-                for (let job of this.jobTypes) {
-                    d.Tax[job] = d[job] * (+tax_obj.Tax_Rate)/100;
+            let federalTaxRate = "0:10, 9876:12, 40126:22, 85526:24, 163301:32";
+
+            for (let job of this.jobTypes) {
+                d.Tax[job] = this.calculateProgressiveTaxes(d[job].salary, federalTaxRate);
+                if (state_tax_obj.Tax_Style == 'Flat') {
+                    d.Tax[job] += d[job].salary * (+state_tax_obj.Tax_Rate)/100;
                 }
-            }
-            else {
-                for (let job of this.jobTypes) {
-                    d.Tax[job] = this.calculateProgressiveTaxes(d[job], tax_obj.Tax_Rate);
+                else {
+                    d.Tax[job] += this.calculateProgressiveTaxes(d[job].salary, state_tax_obj.Tax_Rate);
                 }
+                if (local_tax_obj.Tax_Style == 'Flat') {
+                    d.Tax[job] += d[job].salary * (+local_tax_obj.Tax_Rate)/100;
+                }
+                else {
+                    d.Tax[job] += this.calculateProgressiveTaxes(d[job].salary, local_tax_obj.Tax_Rate);
+                }
+                d.Tax[job] += (d[job].salary * .062);
+                d.Tax[job] += (d[job].salary * .0145);
             }
         }
+        this.cityData = this.cityData.filter(d => d.AvgRent > 0);
+        let restrictList = ["Cleveland", "Irvine", "Greeley", "Fort Collins", "Stamford", "Hartford", "Fort Lauderdale", "Lakeland", "Long Beach", "Stockton", "Ventura", "Bakersfield", "Toledo", "Baltimore", "Worcester"];
+        this.cityData = this.cityData.filter(d => !restrictList.includes(d.City));
         console.log(this.cityData);
         this.drawBackground();
     }
@@ -75,8 +90,8 @@ class BubbleChart {
         //     .style("text-anchor", "top")
         //     .attr('transform', 'translate(-110, -10)');
 
-        let sMax = d3.max(this.cityData, d=>+d[this.jobType]);
-        let sMin = d3.min(this.cityData, d=>+d[this.jobType]>0 ? +d[this.jobType] : Infinity);
+        let sMax = d3.max(this.cityData, d=>d[this.jobType].toDraw);
+        let sMin = d3.min(this.cityData, d=>d[this.jobType].salary>0 ? d[this.jobType].toDraw : Infinity);
 
         this.axisScale = d3
                         .scaleLinear()
@@ -110,7 +125,7 @@ class BubbleChart {
                         .data(this.cityData)
                         .join('circle')
                         .attr('cx', 0)
-                        .attr('cy', d=>this.axisScale(+d[this.jobType]))
+                        .attr('cy', d=>this.axisScale(d[this.jobType].toDraw))
                         .attr('r', 30)
                         .classed('bubble', true)
                         .on("mouseover", function(d) {
@@ -172,7 +187,7 @@ class BubbleChart {
         if (isOn) {
             for (let city of this.cityData) {
                 for (let job of this.jobTypes) {
-                    city[job] -= 12*city.AvgRent;
+                    city[job].toDraw -= city.AvgRent;
                 }
             }
             this.plot()
@@ -180,7 +195,7 @@ class BubbleChart {
         else {
             for (let city of this.cityData) {
                 for (let job of this.jobTypes) {
-                    city[job] += 12*city.AvgRent;
+                    city[job].toDraw += city.AvgRent;
                 }
             }
             this.plot()
@@ -192,7 +207,7 @@ class BubbleChart {
         if (isOn) {
             for (let city of this.cityData) {
                 for (let job of this.jobTypes) {
-                    city[job] -= city.Tax[job];
+                    city[job].toDraw -= city.Tax[job];
                 }
             }
             this.plot()
@@ -200,7 +215,7 @@ class BubbleChart {
         else {
             for (let city of this.cityData) {
                 for (let job of this.jobTypes) {
-                    city[job] += city.Tax[job];
+                    city[job].toDraw += city.Tax[job];
                 }
             }
             this.plot()
