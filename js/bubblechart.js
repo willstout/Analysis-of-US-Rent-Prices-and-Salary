@@ -123,7 +123,7 @@ class BubbleChart {
                         .join('circle')
                         .attr('cx', 0)
                         .attr('cy', d=>this.axisScale(d[this.jobType].toDraw))
-                        .attr('r', 30)
+                        .attr('r', d=>d[this.jobType].salary > 0 ? 30 : 0)
                         .classed('bubble', true)
                         .on("mouseover", function(d) {
                             tooltip
