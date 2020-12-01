@@ -75,8 +75,8 @@ loadData().then(data => {
      * @param isOn - Boolean that reperensents whether the top picks are highlighted or not
      */
     function highlightBest(isOn) {
-        bubblechart.highlightBest(isOn);
-
+        let cities = bubblechart.highlightBest(isOn);
+        map.highlightBest(cities);
     }
 
 });

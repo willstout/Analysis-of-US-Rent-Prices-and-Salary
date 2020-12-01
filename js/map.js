@@ -44,6 +44,7 @@ class Map {
         this.taxToggle = false;
         this.currentJobType = "";
         this.mostRecentlyHighlighted = "";
+        this.topcities = [];
     }
 
     /**
@@ -137,8 +138,10 @@ class Map {
                 let div = d3.select("#maptooltip");	
                 div.transition()		
                     .duration(100)
-                    .style("opacity", 0);	
+                    .style("opacity", 0);
+                
                 that.highlightBubble(d.City, false);
+                
             })
             .style("border-radius", "50%");
     }
@@ -496,5 +499,26 @@ class Map {
         }
 
     }
+
+    highlightBest(cities) {
+        console.log(this.cityArray);
+        console.log(cities);
+        if (cities) {
+            this.topcities = cities;
+            for (let city of this.topcities){
+                //Increases black ring
+                //alert(("circle." + (city.replace(" ", "")).replace(" ", "").replace(".", "")));
+                d3.select("circle." + city.replaceAll(" ", "").replace(".", ""))
+                    .classed('toppiechart', true);
+            }
+        }
+        else {
+            for (let city of this.topcities){
+                d3.select("circle." + city.replace(" ", "").replace(" ","").replace(".",""))
+                .classed('toppiechart', false);
+            }
+            this.topcities = [];
+        }
+     }
 
 }

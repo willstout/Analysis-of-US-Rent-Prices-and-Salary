@@ -121,14 +121,14 @@ select:focus {outline:0;}
     fill: #EB996F;
 }
 
-.highlighted {
-    opacity: 0.9;
-    fill: #EB996F;
-}
-
 .topbubbles {
     opacity: 0.6;
     fill: #9EA5D1;
+}
+
+.highlighted {
+    opacity: 0.9;
+    fill: #EB996F;
 }
 
 div.tooltip {
@@ -156,4 +156,9 @@ div.citytooltip {
 .tooltip h2 {
     margin: auto;
     font: 14px sans-serif;
+}
+
+.toppiechart {
+    stroke-width: 3px;
+    stroke: purple;
 }
