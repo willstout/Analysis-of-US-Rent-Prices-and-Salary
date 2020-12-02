@@ -5,6 +5,8 @@ Code: analysis.html, style.css, merge_data.ipynb, and all files in the js folder
 
 Data: all files in the data folder
 
+Peer feedback document: feedback_exercise.pdf
+
 Process book: process_book.pdf
 
 Project website: [link](https://xuyang-li.github.io/)
