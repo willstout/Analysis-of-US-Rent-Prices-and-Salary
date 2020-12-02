@@ -12,38 +12,48 @@ class BubbleChart {
             for (let job of this.jobTypes) {
                 let salary = +d[job];
                 d[job] = {};
-                d[job].salary = salary;
-                d[job].toDraw = salary;
+                d[job].salary = salary; //Average salary of the job in the city
+                d[job].toDraw = salary; //The number to visualize, can be average salary, or that toggled by rent and/or tax
             }
             let rent_obj = this.data.averageRentPerCity.find(element => (element.City == d.City & element.State == d.State));
             let state_tax_obj = this.data.stateIncomeTaxRates.find(element => (element.City == d.City & element.State == d.State));
             let local_tax_obj = this.data.localIncomeTaxRates.find(element => (element.City == d.City & element.State == d.State));
-            d.AvgRent = +rent_obj.AvgRent*12;
+            d.AvgRent = +rent_obj.AvgRent*12; //Average yearly rent
             
             d.Tax = {};
+
             let federalTaxRate = "0:10, 9876:12, 40126:22, 85526:24, 163301:32";
 
             for (let job of this.jobTypes) {
+                //Calculate federal tax
                 d.Tax[job] = this.calculateProgressiveTaxes(d[job].salary, federalTaxRate);
+                //Calculate state tax
                 if (state_tax_obj.Tax_Style == 'Flat') {
                     d.Tax[job] += d[job].salary * (+state_tax_obj.Tax_Rate)/100;
                 }
                 else {
                     d.Tax[job] += this.calculateProgressiveTaxes(d[job].salary, state_tax_obj.Tax_Rate);
                 }
+                //Calculate local tax
                 if (local_tax_obj.Tax_Style == 'Flat') {
                     d.Tax[job] += d[job].salary * (+local_tax_obj.Tax_Rate)/100;
                 }
                 else {
                     d.Tax[job] += this.calculateProgressiveTaxes(d[job].salary, local_tax_obj.Tax_Rate);
                 }
+                //Calculate Social Security tax
                 d.Tax[job] += (d[job].salary * .062);
+                //Calculate Medicare tax
                 d.Tax[job] += (d[job].salary * .0145);
             }
         }
+        //exclude cities that do not have rent data
         this.cityData = this.cityData.filter(d => d.AvgRent > 0);
+
+        //exclude cities based on a pre-defined list
         let restrictList = ["Cleveland", "Irvine", "Greeley", "Fort Collins", "Stamford", "Hartford", "Fort Lauderdale", "Lakeland", "Long Beach", "Stockton", "Ventura", "Bakersfield", "Toledo", "Baltimore", "Worcester"];
         this.cityData = this.cityData.filter(d => !restrictList.includes(d.City));
+
         this.drawBackground();
     }
 
@@ -88,12 +98,8 @@ class BubbleChart {
     plot() {
         let that = this;
 
-        // d3.select('#axis-label')
-        //     .text("Average Salary")
-        //     .style("text-anchor", "top")
-        //     .attr('transform', 'translate(-110, -10)');
-
         let sMax = d3.max(this.cityData, d=>d[this.jobType].toDraw);
+        //Only take into account the job type that has salary data (salary > 0)
         let sMin = d3.min(this.cityData, d=>d[this.jobType].salary>0 ? d[this.jobType].toDraw : Infinity);
 
         this.axisScale = d3
@@ -111,7 +117,6 @@ class BubbleChart {
 
         d3.select("#axis").call(d3.axisLeft(this.axisScale)
                                     .tickPadding(20)
-                                    //.tickFormat(d3.format(".2s"))
                                     .tickSize(70)
                                     .tickValues(ticks))
                         .attr('transform', 'translate(35, 0)');
@@ -223,6 +228,7 @@ class BubbleChart {
 
     highlightBest(isOn) {
         if (isOn) {
+            //Get the top 3 cities based on current settings
             this.cityData.sort((a, b) => (a[this.jobType].toDraw < b[this.jobType].toDraw) ? 1 : -1);
             let cities = [];
             cities.push(this.cityData[0].City);
@@ -270,7 +276,6 @@ class BubbleChart {
         let taxBrackets = _taxBrackets.split(",");
         let taxBracketsIndex = 0;
         while (taxBracketsIndex < taxBrackets.length - 1) {
-            //Find the
             let percentPaid = taxBrackets[taxBracketsIndex].split(":")[1];
             let taxBracketLowerBound = +taxBrackets[taxBracketsIndex].split(":")[0];
             let taxBracketUpperBound = (+taxBrackets[taxBracketsIndex + 1].split(":")[0]) - 1;
@@ -282,7 +287,7 @@ class BubbleChart {
             else if (taxBracketLowerBound <= salary && taxBracketUpperBound > salary) {
                 taxPaid += (salary - taxBracketLowerBound) * (percentPaid * .01);
             }
-            //console.log("Paying: " + percentPaid + "% from " + taxBracketLowerBound + " to " + taxBracketUpperBound + "= " + taxPaid);
+        
             taxBracketsIndex += 1;
         }
         //We stop short one because of index out of bounds, so this is how we add the details of the last tax bracket
@@ -290,9 +295,7 @@ class BubbleChart {
         let percentPaid = taxBrackets[taxBracketsIndex].split(":")[1];
         if (taxBracketLowerBound <= salary) {
             taxPaid += (salary - taxBracketLowerBound) * (percentPaid * .01);
-            //console.log("Paying: " + percentPaid + "% from " + taxBracketLowerBound + " to " + salary + "= " + taxPaid);
         }
-        //console.log("Tax paid = " + taxPaid);
         return taxPaid;
     }
 }

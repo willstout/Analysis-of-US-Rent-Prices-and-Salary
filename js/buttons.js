@@ -17,8 +17,8 @@ class Buttons {
 
         let buttonPanel = d3.select('#buttonPanel');
 
+        //Set up the drop down for job type selection
         let dropdownWrap = buttonPanel.append('div');
-
         dropdownWrap.append('div')
             .append('text')
             .text('Job Type')
@@ -32,7 +32,6 @@ class Buttons {
 
         let options = drop.selectAll('option')
             .data(this.jobTypes);
-
 
         options.exit().remove();
 
@@ -51,7 +50,7 @@ class Buttons {
             that.highlightBest(false);
         });
 
-        
+        //Set up the toggle rent button
         buttonPanel
                     .append('button')
                     .classed('buttons click-button', true)
@@ -68,6 +67,7 @@ class Buttons {
                         that.highlightBest(false);
                     });
         
+        //Set up the toggle tax button
         buttonPanel
                     .append('button')
                     .classed('buttons click-button', true)
@@ -84,6 +84,7 @@ class Buttons {
                         that.highlightBest(false);
                     });
 
+        //Set up the highlight top 3 button
         buttonPanel
                     .append('button')
                     .classed('buttons click-button', true)
