@@ -478,7 +478,7 @@ class Map {
                 .style("opacity", 1);
             div.html(this.tooltipRender(d, i))
                 .style("left", coordinates[0]+ 430 + "px")
-                .style("top", coordinates[1] + 225+ "px");
+                .style("top", coordinates[1] + 380+ "px");
 
             //Increases black ring
             //alert(("circle." + (city.replace(" ", "")).replace(" ", "").replace(".", "")));

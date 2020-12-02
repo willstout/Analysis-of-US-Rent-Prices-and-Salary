@@ -133,7 +133,7 @@ class BubbleChart {
                             tooltip
                                 .html(that.tooltipRender(d))
                                 .style("left", "250px")
-                                .style("top", `${+d3.select(this).attr("cy")+145}px`);
+                                .style("top", `${+d3.select(this).attr("cy")+295}px`);
                             d3.select(this).raise();
                             that.highlightPieChart(d.City);
                         })
@@ -168,7 +168,7 @@ class BubbleChart {
                 .style("opacity", 1);
             div.html(this.tooltipRender(d))
                 .style("left", "250px")
-                .style("top", `${+bubble.attr('cy')+145}px`);
+                .style("top", `${+bubble.attr('cy')+295}px`);
 
         }
         else {

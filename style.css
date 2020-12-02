@@ -4,12 +4,12 @@
 
 body {
     display: grid;
-    grid-template-columns: 350px 1200px;
-    grid-template-rows: 150px 50px 900px;
+    grid-template-columns: 350px 440px 755px;
+    grid-template-rows: 300px 50px 900px;
     grid-template-areas: 
-        "header header"
-        "bubblechart buttons"
-        "bubblechart map";
+        "header header infobox"
+        "bubblechart buttons buttons"
+        "bubblechart map map";
 }
 
 svg {
@@ -24,7 +24,11 @@ select:focus {outline:0;}
 .header {
     grid-area: header;
     text-align: center;
-    align-self: center;
+    margin-top: 100px;
+}
+
+#infobox {
+    margin-top: 10px;
 }
 
 #bubbleChart {
@@ -160,5 +164,5 @@ div.citytooltip {
 
 .toppiechart {
     stroke-width: 3px;
-    stroke: black;
+    stroke: purple;
 }
