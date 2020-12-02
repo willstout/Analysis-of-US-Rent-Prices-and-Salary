@@ -103,20 +103,13 @@ class Map {
             .style("stroke", "black")
             .style("stroke-width", .8);
 
-        // svg.append("circle")
-        //     .attr("r", 2)
-        //     .attr("transform", function(d, i) {
-        //         return "translate(" + projection([-67.5,39.9]) + ")";
-        //     });
-
         d3.select("#map")
             .append('div')
             .attr("class", "tooltip")
             .attr("id", "maptooltip")
             .style("opacity", 0);
-        
-        //Final version, but first gotta find all those useable city coordinates
-        let circles = svg.selectAll("g")
+
+        svg.selectAll("g")
             .data(that.data.cityCoordinates)
             .enter()
             .append("g")
@@ -154,10 +147,10 @@ class Map {
         let maxTakehome = 0;
         let that = this;
         let svg = d3.select("#mapsvg")
-        //Remove all existing pie slices, remove this if implementing transitions
+        //Remove all existing pie slices
         svg.selectAll(".pieSlice").remove();
 
-        //Determine percentages of each category
+        //Determine what takes up in terms of percentage of the whole. Example: Salary is 50% after 25% of it goes to tax and 25% to rent
         let percentArray = [];
         this.cityArray.forEach(element => {
             let cityPercentArray = [];
@@ -191,9 +184,9 @@ class Map {
                 overallTaxPaid += (salary * .062);
                 //Income tax that goes toward Medicare
                 overallTaxPaid += (salary * .0145);
-                //console.log("Tax paid = " + overallTaxPaid); 
                 element.currentTaxes = overallTaxPaid; 
             }
+            //Calculate those percetages of the whole now
             if (salary != 0) {
                 let salaryAsPercentageOfWhole = salary;
                 let rentAsPercentageOfWhole = 0;
@@ -217,8 +210,6 @@ class Map {
                 cityPercentArray.unshift(salaryAsPercentageOfWhole);
                 
                 percentArray.push(cityPercentArray);
-
-                //console.log("Salary as percent:" + salaryAsPercentageOfWhole + ", " + "Rent as percent:" + rentAsPercentageOfWhole + ", " + "Tax as percent:" + taxAsPercentageOfWhole);
             }
             else {
                 percentArray.push("");
@@ -226,16 +217,19 @@ class Map {
             
         });
 
+        //Scales pie chart
         this.scaleRadius = d3
             .scaleLinear()
             .domain([minTakehome, maxTakehome])
             .range([.5, 1.5]);
 
+        //Scales black circle underneath slightly larger than pie chart
         this.borderScaleRadius = d3
             .scaleLinear()
             .domain([minTakehome, maxTakehome])
             .range([.7, 1.7]);
 
+        //The map was getting too cluttered, so we took a few cities out
         var restrictList = ["Cleveland", "Irvine", "Greeley", "Fort Collins", "Stamford", "Hartford", "Fort Lauderdale", "Lakeland", "Long Beach", "Stockton", "Ventura", "Bakersfield", "Toledo", "Baltimore", "Worcester"];
         
         //Offset set to 1               
@@ -245,7 +239,6 @@ class Map {
         svg.selectAll(".city")
             .each(function(d) {
                 if (percentArray[percIndex] != "") {
-                    
                     //Calculate percentages that each category will take up
                     let pieSliceIndex = 0;
                     let firstSlice = (+percentArray[percIndex][0] * 100);
@@ -277,11 +270,13 @@ class Map {
                             }
                         })
                         .attr("transform", function(d, i) {
-                            //console.log(firstSlice + " " + +that.salrayData[percIndex][jobType]);
                             return "scale(" + (that.borderScaleRadius(firstSlice * .01 * +that.salrayData[percIndex][jobType])) + ")";
                         })
                     
                     //For each pie we're going to make, add it's slices individually
+                    //Dash arrays can be used to create sections of a pie chart, the pie chart is made by laying slices on top of each other
+                    //If there are two slices and one is 33% of the pie and the other is 67%, we make one slice with 100% of a circle
+                    //Then lay another slice that is 67% of the circle since there is no way to really offset starting position
                     while (pieSliceIndex < pieSlices) {
                         d3.select(this)
                             .append("circle")
@@ -305,7 +300,7 @@ class Map {
                                 }
                             })
                             .attr("stroke-width", 10)
-                            //Salary = blue, rent = bisque, tax = black
+                            //Salary = green, rent = blue, tax = pale orange-red
                             .attr("stroke", function(d,i) {
                                 //First slice is salary
                                 if (pieSliceIndex == 0) {
@@ -329,6 +324,7 @@ class Map {
                             .attr("fill", "none")
                             .attr("class", "pieSlice " + that.cityArray[percIndex].city)
                             .attr("r", function(d,i) {
+                                //Check if there is salary date for a city and if it's not in the restricted list
                                 if (+that.salrayData[percIndex][jobType] > 0) {
                                     if (restrictList.includes(d.City)) {
                                         return 0;
@@ -343,7 +339,6 @@ class Map {
                             })
                             .attr("transform", function(d, i) {
                                 //Scale by money earned as percentage of things being considered times salary
-                                //console.log(firstSlice + " " + +that.salrayData[percIndex][jobType])
                                 return "scale(" + (that.scaleRadius(firstSlice * .01 * +that.salrayData[percIndex][jobType])) + ")";
                             })
                             .style("border", "black")
@@ -351,6 +346,7 @@ class Map {
 
                         //Percentage lines
                         if (!restrictList.includes(d.City)) {
+                            //Make a pie slice line divider if there is another slice
                             if (secondSlice != 0 || thirdSlice != 0) {
                                 d3.select(this)
                                     .append("line")
@@ -434,6 +430,12 @@ class Map {
     }
 
 
+    /**
+     * Given a number and a list of tax brackets, calculate the progressive tax owed
+     * An example of the expected style of tax brackets can be found with the federalTaxRate variable
+     * @param {*} salary 
+     * @param {*} _taxBrackets 
+     */
     calculateProgressiveTaxes(salary, _taxBrackets) {
         let taxPaid = 0;
         let taxBrackets = _taxBrackets.split(",");
@@ -451,7 +453,6 @@ class Map {
             else if (taxBracketLowerBound <= salary && taxBracketUpperBound > salary) {
                 taxPaid += (salary - taxBracketLowerBound) * (percentPaid * .01);
             }
-            //console.log("Paying: " + percentPaid + "% from " + taxBracketLowerBound + " to " + taxBracketUpperBound + "= " + taxPaid);
             taxBracketsIndex += 1;
         }
         //We stop short one because of index out of bounds, so this is how we add the details of the last tax bracket
@@ -459,12 +460,15 @@ class Map {
         let percentPaid = taxBrackets[taxBracketsIndex].split(":")[1];
         if (taxBracketLowerBound <= salary) {
             taxPaid += (salary - taxBracketLowerBound) * (percentPaid * .01);
-            //console.log("Paying: " + percentPaid + "% from " + taxBracketLowerBound + " to " + salary + "= " + taxPaid);
         }
-        //console.log("Tax paid = " + taxPaid);
         return taxPaid;
     }
 
+    /**
+     * Updates the highlight of a city depending upon if it's being hovered over currently.
+     * City is a city name if currently being hovered over and is "" if it is no longer being hovered over
+     * @param {*} city 
+     */
     updateCity(city) {
         if (city) {
             let d = this.data.cityCoordinates.find(element => element.City == city);
@@ -480,8 +484,7 @@ class Map {
                 .style("left", coordinates[0]+ 430 + "px")
                 .style("top", coordinates[1] + 380+ "px");
 
-            //Increases black ring
-            //alert(("circle." + (city.replace(" ", "")).replace(" ", "").replace(".", "")));
+            //Increases black ring radius
             let x = d3.select("circle." + city.replaceAll(" ", "").replace(".", ""));
             x.attr("r", 12);
             this.mostRecentlyHighlighted = city;
@@ -500,14 +503,15 @@ class Map {
 
     }
 
+    /**
+     * Highlights multiple cities at once, similar to updateCity
+     * @param {*} cities 
+     */
     highlightBest(cities) {
-        console.log(this.cityArray);
-        console.log(cities);
         if (cities) {
             this.topcities = cities;
             for (let city of this.topcities){
                 //Increases black ring
-                //alert(("circle." + (city.replace(" ", "")).replace(" ", "").replace(".", "")));
                 d3.select("circle." + city.replaceAll(" ", "").replace(".", ""))
                     .classed('toppiechart', true);
             }
